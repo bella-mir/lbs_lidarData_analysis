@@ -352,6 +352,33 @@ document.write(`
                   
   <div class="tex2jax_ignore mathjax_ignore section" id="conclusion">
 <h1>6. Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h1>
+<p>This project aimed to visualize and analyze moving objects at an intersection. We worked with data collected by LIDAR and explored the dataset to gain a general understanding of how objects move at this specific intersection and to gather insights.</p>
+<p>Here, we would like to point out the main outcomes of our analysis and opportunities for potential further analysis.</p>
+<p><strong>Data Quality Assessment</strong>
+One of the main tasks was to create some metrics for assessing data quality. For this, we used different approaches:</p>
+<ol class="arabic simple">
+<li><p>Detecting moving and stationary objects</p></li>
+<li><p>Detecting objects with changing types</p></li>
+<li><p>Detecting statistical outliers for the main characteristics</p></li>
+<li><p>Creating thresholds for certain parameters
+Based on these criteria, we were able to assess the percentage of unreliable data for each 5-minute interval (the interval could be changed).</p></li>
+</ol>
+<p><strong>Counting Objects in Each Direction</strong></p>
+<p>For this task, we applied three different approaches:</p>
+<ol class="arabic simple">
+<li><p>Grid-Based Clustering for Detecting Directions (Cars)</p></li>
+</ol>
+<p>Based on the location of starting and ending points and their density, we created clusters to identify directions.</p>
+<ol class="arabic simple" start="2">
+<li><p>Intersection-Based (Cars and Pedestrians)</p></li>
+</ol>
+<p>Used spatial joins with crosslines created in GIS to count intersections and determine directions.</p>
+<ol class="arabic simple" start="3">
+<li><p>Statistical Analysis Based on Average Heading (Cars, Pedestrians, and Two-Wheelers)</p></li>
+</ol>
+<p><strong>Possible Further Analysis</strong></p>
+<p>Despite the extensive work performed, we understand that further analysis can be undertaken. For example, detecting clustered object trajectories, exploring anomalies, and examining interesting situations could provide additional insights.</p>
+<p>The working process was challenging but very interesting, so we couldn’t stop to calculate new metrics, which sometimes could affect the depth of analysis and how detailed the description of the results</p>
 </div>
 
     <script type="text/x-thebe-config">
