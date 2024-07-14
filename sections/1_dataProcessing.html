@@ -1,0 +1,1304 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. Data Processing &#8212; Analyzing and visualizing moving objects at intersections</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sections/1_dataProcessing';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Descriptive Statistics" href="2_descriptiveStatistics.html" />
+    <link rel="prev" title="1. Reading and Exploring Data" href="0_dataExploration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Analyzing and visualizing moving objects at intersections</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Analyzing and visualizing moving objects at intersections
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0_dataExploration.html">1. Reading and Exploring Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_descriptiveStatistics.html">3. Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_dataQualityAssesment.html">4. Data Quality Assesment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_countingByDirection.html">5. Counting Objects in Each Direction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_conclusions.html">6. Conclusion</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bella-mir/lbs_lidarData_analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bella-mir/lbs_lidarData_analysis/issues/new?title=Issue%20on%20page%20%2Fsections/1_dataProcessing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/sections/1_dataProcessing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>2. Data Processing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-data">Reading data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dividing-data-into-classes-based-on-5-minutes-interval">Dividing data into classes based on 5 minutes interval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-geodata">Creating GeoData</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-the-distance-between-the-first-and-the-last-point">Calcualte the distance between the first and the last point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-average-heading-and-velocity-change">Calcualte average heading and velocity change</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-lines-from-point-observations">Creating Lines from Point Observations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-statistics-for-each-line">Calculate Statistics for each line</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="data-processing">
+<h1>2. Data Processing<a class="headerlink" href="#data-processing" title="Permalink to this heading">#</a></h1>
+<p>In the following section, we will process the data to enhance opportunities for further analysis. We will divide the data into 5-minute intervals, create a GeoDataFrame to work with this dataset as spatial data, create lines (directions) for each object based on point data, and calculate various statistics for each object.</p>
+<div class="section" id="import-libraries">
+<h2>Import libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPolygon</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="reading-data">
+<h2>Reading data<a class="headerlink" href="#reading-data" title="Permalink to this heading">#</a></h2>
+<p>Reading the result from the previois section</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_cleaned</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/1_data_cleaned.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="dividing-data-into-classes-based-on-5-minutes-interval">
+<h2>Dividing data into classes based on 5 minutes interval<a class="headerlink" href="#dividing-data-into-classes-based-on-5-minutes-interval" title="Permalink to this heading">#</a></h2>
+<p>We are dividing our dataset into 5-minutes interval for the final estimations on the data quality assesment</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_timestamp</span> <span class="o">=</span> <span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+<span class="n">milliseconds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span>
+
+<span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;time_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_timestamp</span><span class="p">)</span> <span class="o">/</span> <span class="n">milliseconds</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">data_cleaned</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>object_id</th>
+      <th>timestamp</th>
+      <th>heading</th>
+      <th>height</th>
+      <th>width</th>
+      <th>length</th>
+      <th>v</th>
+      <th>tracking_status</th>
+      <th>object_type</th>
+      <th>lon</th>
+      <th>lat</th>
+      <th>time_class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>152997118</td>
+      <td>1712062811083</td>
+      <td>132.072</td>
+      <td>0.735</td>
+      <td>1.942</td>
+      <td>4.387</td>
+      <td>0.03</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>152997118</td>
+      <td>1712062811183</td>
+      <td>132.286</td>
+      <td>0.731</td>
+      <td>1.861</td>
+      <td>4.320</td>
+      <td>0.04</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>152997118</td>
+      <td>1712062811283</td>
+      <td>132.229</td>
+      <td>0.739</td>
+      <td>1.955</td>
+      <td>4.395</td>
+      <td>0.03</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>152997118</td>
+      <td>1712062811386</td>
+      <td>131.980</td>
+      <td>0.729</td>
+      <td>1.942</td>
+      <td>4.367</td>
+      <td>0.04</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810135</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>152997118</td>
+      <td>1712062811485</td>
+      <td>132.020</td>
+      <td>0.737</td>
+      <td>1.875</td>
+      <td>4.328</td>
+      <td>0.02</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="creating-geodata">
+<h2>Creating GeoData<a class="headerlink" href="#creating-geodata" title="Permalink to this heading">#</a></h2>
+<p>Based on coordinates provided in a csv file, we are creating points as spatial data - geoDataFrame</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">points_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">data_cleaned</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]),</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+
+<span class="n">points_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>object_id</th>
+      <th>timestamp</th>
+      <th>heading</th>
+      <th>height</th>
+      <th>width</th>
+      <th>length</th>
+      <th>v</th>
+      <th>tracking_status</th>
+      <th>object_type</th>
+      <th>lon</th>
+      <th>lat</th>
+      <th>time_class</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>152997118</td>
+      <td>1712062811083</td>
+      <td>132.072</td>
+      <td>0.735</td>
+      <td>1.942</td>
+      <td>4.387</td>
+      <td>0.03</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+      <td>POINT (13.06440 47.81014)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>152997118</td>
+      <td>1712062811183</td>
+      <td>132.286</td>
+      <td>0.731</td>
+      <td>1.861</td>
+      <td>4.320</td>
+      <td>0.04</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+      <td>POINT (13.06441 47.81014)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>152997118</td>
+      <td>1712062811283</td>
+      <td>132.229</td>
+      <td>0.739</td>
+      <td>1.955</td>
+      <td>4.395</td>
+      <td>0.03</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+      <td>POINT (13.06440 47.81014)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>152997118</td>
+      <td>1712062811386</td>
+      <td>131.980</td>
+      <td>0.729</td>
+      <td>1.942</td>
+      <td>4.367</td>
+      <td>0.04</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810135</td>
+      <td>0</td>
+      <td>POINT (13.06441 47.81014)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>152997118</td>
+      <td>1712062811485</td>
+      <td>132.020</td>
+      <td>0.737</td>
+      <td>1.875</td>
+      <td>4.328</td>
+      <td>0.02</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+      <td>POINT (13.06441 47.81014)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="section" id="calcualte-the-distance-between-the-first-and-the-last-point">
+<h3>Calcualte the distance between the first and the last point<a class="headerlink" href="#calcualte-the-distance-between-the-first-and-the-last-point" title="Permalink to this heading">#</a></h3>
+<p>As one of the characteristics for the analysis we are caluclating the distance between the first and the last point for each object</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">points_gdf</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">points_gdf</span><span class="o">.</span><span class="n">estimate_utm_crs</span><span class="p">())</span>
+
+<span class="c1"># Function to calculate distance between first and last points</span>
+<span class="k">def</span> <span class="nf">calculate_distance</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">first_point</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">last_point</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">first_point</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">last_point</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="c1"># Group by object_id and calculate distances</span>
+<span class="n">distances</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">calculate_distance</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">)</span>
+
+<span class="c1"># Merge distances back into the original GeoDataFrame</span>
+<span class="n">points_gdf</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="n">points_gdf</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+
+<span class="n">points_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>object_id</th>
+      <th>timestamp</th>
+      <th>heading</th>
+      <th>height</th>
+      <th>width</th>
+      <th>length</th>
+      <th>v</th>
+      <th>tracking_status</th>
+      <th>object_type</th>
+      <th>lon</th>
+      <th>lat</th>
+      <th>time_class</th>
+      <th>geometry</th>
+      <th>distance_first_last</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>152997118</td>
+      <td>1712062811083</td>
+      <td>132.072</td>
+      <td>0.735</td>
+      <td>1.942</td>
+      <td>4.387</td>
+      <td>0.03</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+      <td>POINT (13.06440 47.81014)</td>
+      <td>0.165151</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>152997118</td>
+      <td>1712062811183</td>
+      <td>132.286</td>
+      <td>0.731</td>
+      <td>1.861</td>
+      <td>4.320</td>
+      <td>0.04</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+      <td>POINT (13.06441 47.81014)</td>
+      <td>0.165151</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>152997118</td>
+      <td>1712062811283</td>
+      <td>132.229</td>
+      <td>0.739</td>
+      <td>1.955</td>
+      <td>4.395</td>
+      <td>0.03</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+      <td>POINT (13.06440 47.81014)</td>
+      <td>0.165151</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>152997118</td>
+      <td>1712062811386</td>
+      <td>131.980</td>
+      <td>0.729</td>
+      <td>1.942</td>
+      <td>4.367</td>
+      <td>0.04</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810135</td>
+      <td>0</td>
+      <td>POINT (13.06441 47.81014)</td>
+      <td>0.165151</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>152997118</td>
+      <td>1712062811485</td>
+      <td>132.020</td>
+      <td>0.737</td>
+      <td>1.875</td>
+      <td>4.328</td>
+      <td>0.02</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+      <td>0</td>
+      <td>POINT (13.06441 47.81014)</td>
+      <td>0.165151</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="calcualte-average-heading-and-velocity-change">
+<h3>Calcualte average heading and velocity change<a class="headerlink" href="#calcualte-average-heading-and-velocity-change" title="Permalink to this heading">#</a></h3>
+<p>As one of the characteristics for the analysis we are caluclating average heading and velocity change for each object to explore possible anomalies based on this parameters</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_average_change</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">value_field</span><span class="p">):</span>
+
+    <span class="n">change_field</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value_field</span><span class="si">}</span><span class="s1">_change&#39;</span> 
+
+    <span class="n">avg_change_field</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;avg_</span><span class="si">{</span><span class="n">value_field</span><span class="si">}</span><span class="s1">_change&#39;</span> 
+
+    <span class="c1"># Calculate heading change between consecutive points</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">change_field</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="n">value_field</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Calculate average heading change per object</span>
+    <span class="n">avg_change</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="n">change_field</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># Update the original DataFrame with average heading change</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">avg_change</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">avg_change_field</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate and update average heading change for each object in the DataFrame</span>
+<span class="n">points_gdf</span> <span class="o">=</span> <span class="n">calculate_average_change</span><span class="p">(</span><span class="n">points_gdf</span><span class="p">,</span> <span class="s1">&#39;heading&#39;</span><span class="p">)</span>
+<span class="n">points_gdf</span> <span class="o">=</span> <span class="n">calculate_average_change</span><span class="p">(</span><span class="n">points_gdf</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="creating-lines-from-point-observations">
+<h2>Creating Lines from Point Observations<a class="headerlink" href="#creating-lines-from-point-observations" title="Permalink to this heading">#</a></h2>
+<p>Creating lines from point observation to see the actual path for each object</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group by &#39;object_id&#39; and create LineString geometries</span>
+<span class="k">def</span> <span class="nf">create_linestring</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">LineString</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="c1"># Group by &#39;object_id&#39; and create LineString geometries</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">create_linestring</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+
+
+<span class="c1"># Create a new GeoDataFrame for the lines</span>
+<span class="n">lines_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="s1">&#39;geometry&#39;</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+<span class="n">lines_gdf</span> <span class="o">=</span> <span class="n">lines_gdf</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;object_id&#39;</span><span class="p">})</span>
+<span class="n">lines_gdf</span> <span class="o">=</span> <span class="n">lines_gdf</span><span class="p">[</span><span class="n">lines_gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="calculate-statistics-for-each-line">
+<h2>Calculate Statistics for each line<a class="headerlink" href="#calculate-statistics-for-each-line" title="Permalink to this heading">#</a></h2>
+<p>Calculating different statistics for each line such as: overall time of movement, average heading, velocity, width, height and length</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the time difference (max - min timestamp) for each object_id</span>
+<span class="n">time_diff</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+
+<span class="c1"># Calculate average heading, average velocity, average width, average length for each object_id</span>
+<span class="n">avg_heading</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;heading&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">avg_v</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">avg_width</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">avg_length</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">avg_height</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+
+<span class="c1"># Combine the calculated statistics into a new DataFrame</span>
+<span class="n">statistics_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;total_time&#39;</span><span class="p">:</span> <span class="n">time_diff</span><span class="p">,</span> <span class="s1">&#39;avg_heading&#39;</span><span class="p">:</span> <span class="n">avg_heading</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">:</span> <span class="n">avg_v</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">:</span> <span class="n">avg_width</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">:</span> <span class="n">avg_length</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">:</span> <span class="n">avg_height</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Adding important Object characteristics from an initial DataFrame</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add object_type column to the new DataFrame</span>
+<span class="n">statistics_df</span><span class="p">[</span><span class="s1">&#39;object_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;object_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Add time_class column to the new DataFrame</span>
+<span class="n">statistics_df</span><span class="p">[</span><span class="s1">&#39;time_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;time_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Add average heading change column to the new DataFrame</span>
+<span class="n">statistics_df</span><span class="p">[</span><span class="s1">&#39;avg_heading_change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;avg_heading_change&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Add average velocity change column to the new DataFrame</span>
+<span class="n">statistics_df</span><span class="p">[</span><span class="s1">&#39;avg_v_change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;avg_v_change&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Add distance between first and last points to the new DataFrame</span>
+<span class="n">statistics_df</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Сalculate whether the type of the same object has changed</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a column with all unique object types for each object_id</span>
+<span class="n">unique_object_types</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">)[</span><span class="s1">&#39;object_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span>
+<span class="n">statistics_df</span><span class="p">[</span><span class="s1">&#39;unique_object_types&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unique_object_types</span>
+
+<span class="c1"># Add columns for each object_type and its occurrences</span>
+<span class="n">object_type_counts</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="s1">&#39;object_type&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">statistics_df</span> <span class="o">=</span> <span class="n">statistics_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">object_type_counts</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;object_id&#39;</span><span class="p">)</span>
+
+<span class="c1"># Calculate the percentage of each object type for each object_id</span>
+<span class="n">object_type_percentages</span> <span class="o">=</span> <span class="n">object_type_counts</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">object_type_counts</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Determine the object type with the highest percentage for each object_id</span>
+<span class="n">top_object_type</span> <span class="o">=</span> <span class="n">object_type_percentages</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">statistics_df</span><span class="p">[</span><span class="s1">&#39;object_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">top_object_type</span>
+
+<span class="c1"># Calculate the percentage of the top object_type for each object_id</span>
+<span class="n">top_object_type_percentage</span> <span class="o">=</span> <span class="n">object_type_percentages</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">statistics_df</span><span class="p">[</span><span class="s1">&#39;top_object_type_percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">top_object_type_percentage</span>
+
+<span class="c1"># Reset index to have object_id as a column instead of index</span>
+<span class="n">statistics_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Merging Statistics to GeoDataFrames with lines for each object</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_stat</span> <span class="o">=</span> <span class="n">lines_gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">statistics_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Calculating length for each line</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Calcualte length of each line</span>
+<span class="n">lines_gdf_stat</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">lines_gdf</span><span class="o">.</span><span class="n">estimate_utm_crs</span><span class="p">())</span>
+<span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;route_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">length</span>
+
+<span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;total_time_s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span>
+
+<span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;direct_real_d_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;route_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
+
+<span class="n">lines_gdf_stat</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+
+<span class="n">lines_gdf_stat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>geometry</th>
+      <th>total_time</th>
+      <th>avg_heading</th>
+      <th>avg_v</th>
+      <th>avg_width</th>
+      <th>avg_length</th>
+      <th>avg_height</th>
+      <th>object_type</th>
+      <th>time_class</th>
+      <th>...</th>
+      <th>avg_v_change</th>
+      <th>distance_first_last</th>
+      <th>unique_object_types</th>
+      <th>CAR</th>
+      <th>CYCLIST</th>
+      <th>PEDESTRIAN</th>
+      <th>top_object_type_percentage</th>
+      <th>route_length</th>
+      <th>total_time_s</th>
+      <th>direct_real_d_ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>152997118</td>
+      <td>LINESTRING (13.06440 47.81014, 13.06441 47.810...</td>
+      <td>286302</td>
+      <td>133.7800</td>
+      <td>0.03</td>
+      <td>1.869</td>
+      <td>4.3870</td>
+      <td>1.151</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0.000004</td>
+      <td>0.165151</td>
+      <td>CAR</td>
+      <td>2748</td>
+      <td>0</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>102.985753</td>
+      <td>286.302</td>
+      <td>623.585910</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>152997181</td>
+      <td>LINESTRING (13.06399 47.81006, 13.06399 47.810...</td>
+      <td>138700</td>
+      <td>148.0520</td>
+      <td>0.77</td>
+      <td>0.559</td>
+      <td>0.5585</td>
+      <td>1.332</td>
+      <td>PEDESTRIAN</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-0.000261</td>
+      <td>65.637374</td>
+      <td>PEDESTRIAN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1342</td>
+      <td>100.0</td>
+      <td>110.534391</td>
+      <td>138.700</td>
+      <td>1.684016</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>152997182</td>
+      <td>LINESTRING (13.06413 47.81005, 13.06413 47.810...</td>
+      <td>270701</td>
+      <td>139.9335</td>
+      <td>0.02</td>
+      <td>1.912</td>
+      <td>4.5230</td>
+      <td>1.690</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0.000004</td>
+      <td>0.086359</td>
+      <td>CAR</td>
+      <td>2616</td>
+      <td>0</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>60.296137</td>
+      <td>270.701</td>
+      <td>698.199732</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>152997183</td>
+      <td>LINESTRING (13.06339 47.80977, 13.06339 47.809...</td>
+      <td>101799</td>
+      <td>105.4660</td>
+      <td>0.01</td>
+      <td>1.872</td>
+      <td>4.8670</td>
+      <td>1.566</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0.009214</td>
+      <td>119.628432</td>
+      <td>CAR</td>
+      <td>980</td>
+      <td>0</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>144.550702</td>
+      <td>101.799</td>
+      <td>1.208331</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>152997184</td>
+      <td>LINESTRING (13.06339 47.80978, 13.06340 47.809...</td>
+      <td>100897</td>
+      <td>97.4585</td>
+      <td>0.01</td>
+      <td>1.974</td>
+      <td>5.0000</td>
+      <td>1.615</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0.006307</td>
+      <td>111.192417</td>
+      <td>CAR</td>
+      <td>972</td>
+      <td>0</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>144.484505</td>
+      <td>100.897</td>
+      <td>1.299410</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+<p>In this section, we processed the data, created geodataframe from the CSV file, and calculated summary parameters for further analysis.</p>
+</div>
+<div class="section" id="saving-final-result">
+<h2>Saving Final Result<a class="headerlink" href="#saving-final-result" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#lines_gdf_stat.to_file(&#39;data/2_lines_gdf_stat.gpkg&#39;)</span>
+<span class="c1">#points_gdf.to_file(&#39;data/2_points_gdf.gpkg&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./sections"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0_dataExploration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">1. Reading and Exploring Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2_descriptiveStatistics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">3. Descriptive Statistics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-data">Reading data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dividing-data-into-classes-based-on-5-minutes-interval">Dividing data into classes based on 5 minutes interval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-geodata">Creating GeoData</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-the-distance-between-the-first-and-the-last-point">Calcualte the distance between the first and the last point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-average-heading-and-velocity-change">Calcualte average heading and velocity change</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-lines-from-point-observations">Creating Lines from Point Observations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-statistics-for-each-line">Calculate Statistics for each line</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bella Mironova
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,2118 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. Descriptive Statistics &#8212; Analyzing and visualizing moving objects at intersections</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sections/2_descriptiveStatistics';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Data Quality Assesment" href="3_dataQualityAssesment.html" />
+    <link rel="prev" title="2. Data Processing" href="1_dataProcessing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Analyzing and visualizing moving objects at intersections</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Analyzing and visualizing moving objects at intersections
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0_dataExploration.html">1. Reading and Exploring Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_dataProcessing.html">2. Data Processing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_dataQualityAssesment.html">4. Data Quality Assesment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_countingByDirection.html">5. Counting Objects in Each Direction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_conclusions.html">6. Conclusion</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bella-mir/lbs_lidarData_analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bella-mir/lbs_lidarData_analysis/issues/new?title=Issue%20on%20page%20%2Fsections/2_descriptiveStatistics.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/sections/2_descriptiveStatistics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3. Descriptive Statistics</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-descriptive-satistics">General Descriptive Satistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-data">Reading data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">0. Object Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-data-with-typechanges">Exploring Data with TypeChanges</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-functions">Additional Functions</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">1. Cars</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ars-dimentions-width-and-height-length">СARS DIMENTIONS (width and height, length)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">2. Pedestrians</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">3. Two-Wheelers</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="descriptive-statistics">
+<h1>3. Descriptive Statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this heading">#</a></h1>
+<div class="section" id="general-descriptive-satistics">
+<h2>General Descriptive Satistics<a class="headerlink" href="#general-descriptive-satistics" title="Permalink to this heading">#</a></h2>
+<p>This section is about exploring object types, there change and summary statisctics</p>
+</div>
+<div class="section" id="import-libraries">
+<h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPolygon</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="reading-data">
+<h2>Reading data<a class="headerlink" href="#reading-data" title="Permalink to this heading">#</a></h2>
+<p>Reading the result from the previois section</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_stat</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data/2_lines_gdf_stat.gpkg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="object-types">
+<h3>0. Object Types<a class="headerlink" href="#object-types" title="Permalink to this heading">#</a></h3>
+<p>Let’s look at the destribution of objects based on type</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Function to standardize each string by sorting the items</span>
+<span class="k">def</span> <span class="nf">standardize_string</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span>
+    <span class="n">sorted_items</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sorted_items</span><span class="p">)</span>
+
+<span class="c1"># Apply the function to the &#39;unique_object_types&#39; column</span>
+<span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;unique_object_types_sorted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;unique_object_types&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">standardize_string</span><span class="p">)</span>
+
+<span class="c1"># Calculate counts and sort values by frequency in descending order</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;unique_object_types_sorted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Create a palette of different colors</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;husl&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">))</span>
+
+<span class="c1"># Plot the histogram with sorted values and different colors for each bin</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">counts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">counts</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">palette</span><span class="p">)</span>
+
+<span class="c1"># Calculate the total number of observations</span>
+<span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines_gdf_stat</span><span class="p">)</span>
+
+<span class="c1"># Annotate each bar with the count and percentage</span>
+<span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+    <span class="n">percentage</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s1">(</span><span class="si">{</span><span class="n">percentage</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> 
+                <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> 
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Remove the plot frame (spines)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Set title and labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of Object Types&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Object Type&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/78dcce705ce117d13f1290428057c89d70e5cde6c23449a5e4c3edba2b39c4ef.png" src="../_images/78dcce705ce117d13f1290428057c89d70e5cde6c23449a5e4c3edba2b39c4ef.png" />
+</div>
+</div>
+<p>This graph is different from the one in the first chapter as it looks at object types not for individual points but for the objects as a whole, also considering changes in object type.</p>
+<p>We can see that more than 60% of the objects are cars, around 22.4% are pedestrians, and only 1% are two-wheelers. The remaining 17% are objects that changed their type along the route for some reason. We will explore these categories in the following section.</p>
+</div>
+<div class="section" id="exploring-data-with-typechanges">
+<h3>Exploring Data with TypeChanges<a class="headerlink" href="#exploring-data-with-typechanges" title="Permalink to this heading">#</a></h3>
+<p>We are exploring the objects that were changing their type along the route and dividing them into 3 classes based on the share of the main type: less than 80%, between 80% and 90%, and between 90% and 100%</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the &#39;typeChanges&#39; field</span>
+<span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;typeChanges&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;top_object_type_percentage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Create the &#39;typeChangesRate&#39; field</span>
+<span class="k">def</span> <span class="nf">calculate_type_changes_rate</span><span class="p">(</span><span class="n">percentage</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">percentage</span> <span class="o">==</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="mi">90</span> <span class="o">&lt;=</span> <span class="n">percentage</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.1</span>
+    <span class="k">elif</span> <span class="mi">80</span> <span class="o">&lt;=</span> <span class="n">percentage</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+<span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;typeChangesRate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;top_object_type_percentage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">calculate_type_changes_rate</span><span class="p">)</span>
+
+<span class="c1"># Display the DataFrame with the new fields</span>
+<span class="n">lines_gdf_stat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>total_time</th>
+      <th>avg_heading</th>
+      <th>avg_v</th>
+      <th>avg_width</th>
+      <th>avg_length</th>
+      <th>avg_height</th>
+      <th>object_type</th>
+      <th>time_class</th>
+      <th>avg_heading_change</th>
+      <th>...</th>
+      <th>CYCLIST</th>
+      <th>PEDESTRIAN</th>
+      <th>top_object_type_percentage</th>
+      <th>route_length</th>
+      <th>total_time_s</th>
+      <th>direct_real_d_ratio</th>
+      <th>geometry</th>
+      <th>unique_object_types_sorted</th>
+      <th>typeChanges</th>
+      <th>typeChangesRate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>152997118</td>
+      <td>286302</td>
+      <td>133.7800</td>
+      <td>0.03</td>
+      <td>1.869</td>
+      <td>4.3870</td>
+      <td>1.151</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.065886</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>102.985753</td>
+      <td>286.302</td>
+      <td>623.585910</td>
+      <td>LINESTRING (13.06440 47.81014, 13.06441 47.810...</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>152997181</td>
+      <td>138700</td>
+      <td>148.0520</td>
+      <td>0.77</td>
+      <td>0.559</td>
+      <td>0.5585</td>
+      <td>1.332</td>
+      <td>PEDESTRIAN</td>
+      <td>0</td>
+      <td>-0.048435</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1342</td>
+      <td>100.0</td>
+      <td>110.534391</td>
+      <td>138.700</td>
+      <td>1.684016</td>
+      <td>LINESTRING (13.06399 47.81006, 13.06399 47.810...</td>
+      <td>PEDESTRIAN</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>152997182</td>
+      <td>270701</td>
+      <td>139.9335</td>
+      <td>0.02</td>
+      <td>1.912</td>
+      <td>4.5230</td>
+      <td>1.690</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>-0.068684</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>60.296137</td>
+      <td>270.701</td>
+      <td>698.199732</td>
+      <td>LINESTRING (13.06413 47.81005, 13.06413 47.810...</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>152997183</td>
+      <td>101799</td>
+      <td>105.4660</td>
+      <td>0.01</td>
+      <td>1.872</td>
+      <td>4.8670</td>
+      <td>1.566</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>-0.081633</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>144.550702</td>
+      <td>101.799</td>
+      <td>1.208331</td>
+      <td>LINESTRING (13.06339 47.80977, 13.06339 47.809...</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>152997184</td>
+      <td>100897</td>
+      <td>97.4585</td>
+      <td>0.01</td>
+      <td>1.974</td>
+      <td>5.0000</td>
+      <td>1.615</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>-0.053851</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>144.484505</td>
+      <td>100.897</td>
+      <td>1.299410</td>
+      <td>LINESTRING (13.06339 47.80978, 13.06340 47.809...</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 24 columns</p>
+</div></div></div>
+</div>
+<p>Filtering Data that has typeChanges along the route</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_type_changes</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;typeChanges&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Creating histogram to explore the distribution of objects based on the share of the main object</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the histogram with a custom color</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">lines_type_changes</span><span class="p">[</span><span class="s1">&#39;top_object_type_percentage&#39;</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Calculate the total number of observations</span>
+<span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines_type_changes</span><span class="p">)</span>
+
+<span class="c1"># Annotate each bar with the count and percentage</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+    <span class="n">percentage</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s1">(</span><span class="si">{</span><span class="n">percentage</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> 
+                <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> 
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Remove the plot frame (spines)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Set title and labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of Top Object Type Percentage&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Top Object Type Percentage&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/112566e0acb6a7486985c630f1d3e6c184dd050c55de0ff7df520f57b5c36448.png" src="../_images/112566e0acb6a7486985c630f1d3e6c184dd050c55de0ff7df520f57b5c36448.png" />
+</div>
+</div>
+<p>For the same task creating Stacked Bar Chart, to see it from different perspective</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assume lines_gdf_stat is your DataFrame and it has the column &#39;top_object_type_percentage&#39;</span>
+
+<span class="c1"># Create bins with 5% width</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># Create bins from 0 to 100 with step 5</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">5</span><span class="si">}</span><span class="s1">%&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+
+<span class="c1"># Bin the data</span>
+<span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;bins&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;top_object_type_percentage&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Count the number of objects in each bin</span>
+<span class="n">bin_counts</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;bins&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="c1"># Sort the bin counts in descending order for the legend</span>
+<span class="n">sorted_bin_counts</span> <span class="o">=</span> <span class="n">bin_counts</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Calculate the total number of objects</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">bin_counts</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Prepare the data for the stacked bar plot</span>
+<span class="n">bin_labels</span> <span class="o">=</span> <span class="n">sorted_bin_counts</span><span class="o">.</span><span class="n">index</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">sorted_bin_counts</span><span class="o">.</span><span class="n">values</span>
+<span class="n">percentages</span> <span class="o">=</span> <span class="p">(</span><span class="n">counts</span> <span class="o">/</span> <span class="n">total</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Create an inverted gradient color palette</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;PuBuGn&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Plot the stacked bar chart</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="s1">&#39;All Bins&#39;</span><span class="p">],</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">counts</span><span class="p">)],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Add stacked sections with gradient colors</span>
+<span class="n">bottom</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">percentage</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">percentages</span><span class="p">,</span> <span class="n">bin_labels</span><span class="p">,</span> <span class="n">cmap</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="s1">&#39;All Bins&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">count</span><span class="p">],</span> <span class="n">bottom</span><span class="o">=</span><span class="n">bottom</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">percentage</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">bottom</span> <span class="o">+=</span> <span class="n">count</span>
+
+<span class="c1"># Annotate each section with white text</span>
+<span class="n">bottom</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">percentage</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">percentages</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bottom</span> <span class="o">+</span> <span class="n">count</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="se">\n</span><span class="s1">(</span><span class="si">{</span><span class="n">percentage</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%)&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+    <span class="n">bottom</span> <span class="o">+=</span> <span class="n">count</span>
+
+
+<span class="c1"># Remove the plot frame (spines)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Set title and labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Stacked Bar Chart of Objects in Each 5% Bin&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Top Object Type Percentage Bins&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Objects&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Bins&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e1cf341fff69fef51db507c4026be3c88fb21a23688ff5b6fc0a6cfb3db4acb4.png" src="../_images/e1cf341fff69fef51db507c4026be3c88fb21a23688ff5b6fc0a6cfb3db4acb4.png" />
+</div>
+</div>
+<p>More than 36% of objects that change their type, actually doesn’t change it too much and 90%+ of all points are considered as one type. 12% more have more than 90% of points with the same type.</p>
+<p>This data help us to extract data that chages its type a lot and will be hard to analyse. We won’t filter initial data based on this variable but we will consider it as one of the parameters for data quality assesment</p>
+<p>Let’s explore how the object types were changing (order of transition between types):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate counts and sort values by frequency in descending order</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">lines_type_changes</span><span class="p">[</span><span class="s1">&#39;unique_object_types&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Create a palette of different colors</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;husl&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">))</span>
+
+<span class="c1"># Plot the histogram with sorted values and different colors for each bin</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">counts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">counts</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">palette</span><span class="p">)</span>
+
+<span class="c1"># Calculate the total number of observations</span>
+<span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines_type_changes</span><span class="p">)</span>
+
+<span class="c1"># Annotate each bar with the count and percentage</span>
+<span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+    <span class="n">percentage</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s1">(</span><span class="si">{</span><span class="n">percentage</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> 
+                <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> 
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Remove the plot frame (spines)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Set title and labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of Object Types&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Object Type&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/444e03c8e3be9d7c0bf3e1093a5b98c5d0db028637348669da9a45ff8ee19f6c.png" src="../_images/444e03c8e3be9d7c0bf3e1093a5b98c5d0db028637348669da9a45ff8ee19f6c.png" />
+</div>
+</div>
+<p>Most of the objects changed their type from pedestrian to a car and from pedestrian to cyclist (arounf 28% for both)</p>
+<p>We were trying to explore, may be there will be some interesting situation for heading change or velocity change based for each of this groups. But based on the average parameter, couldnt find anything</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span> <span class="c1"># Calculate average heading change per object</span>
+<span class="n">avg_heading_change</span> <span class="o">=</span> <span class="n">lines_type_changes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;unique_object_types&#39;</span><span class="p">)[</span><span class="s1">&#39;avg_heading_change&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+ <span class="c1"># Calculate average heading change per object</span>
+<span class="n">avg_v_change</span> <span class="o">=</span> <span class="n">lines_type_changes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;unique_object_types&#39;</span><span class="p">)[</span><span class="s1">&#39;avg_v_change&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">avg_heading_change</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">avg_v_change</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>unique_object_types
+CAR, CYCLIST               -0.121379
+CAR, CYCLIST, PEDESTRIAN   -0.289290
+CAR, PEDESTRIAN             1.940362
+CAR, PEDESTRIAN, CYCLIST   -0.374118
+CYCLIST, CAR                0.981525
+CYCLIST, CAR, PEDESTRIAN    0.251706
+CYCLIST, PEDESTRIAN        -0.368309
+CYCLIST, PEDESTRIAN, CAR   -0.630435
+PEDESTRIAN, CAR            -0.088528
+PEDESTRIAN, CAR, CYCLIST   -0.495457
+PEDESTRIAN, CYCLIST         0.125764
+PEDESTRIAN, CYCLIST, CAR   -0.379689
+Name: avg_heading_change, dtype: float64
+unique_object_types
+CAR, CYCLIST                0.010916
+CAR, CYCLIST, PEDESTRIAN   -0.010641
+CAR, PEDESTRIAN            -0.018787
+CAR, PEDESTRIAN, CYCLIST    0.003939
+CYCLIST, CAR               -0.010123
+CYCLIST, CAR, PEDESTRIAN   -0.003026
+CYCLIST, PEDESTRIAN         0.002024
+CYCLIST, PEDESTRIAN, CAR   -0.033420
+PEDESTRIAN, CAR             0.040450
+PEDESTRIAN, CAR, CYCLIST    0.024540
+PEDESTRIAN, CYCLIST         0.006920
+PEDESTRIAN, CYCLIST, CAR    0.005258
+Name: avg_v_change, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="additional-functions">
+<h4>Additional Functions<a class="headerlink" href="#additional-functions" title="Permalink to this heading">#</a></h4>
+<p>We have created some aditional functions that will help us explore the data for different object types:</p>
+<ol class="arabic simple">
+<li><p>The function to create plots for different fieldsin a dataframe:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_stats</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x_field</span><span class="p">,</span> <span class="n">y_field</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z_field</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># Create figure and axes for boxplot and histograms</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    
+    <span class="c1"># Boxplot</span>
+    <span class="k">if</span> <span class="n">y_field</span> <span class="ow">and</span> <span class="n">z_field</span><span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="n">x_field</span><span class="p">,</span> <span class="n">y_field</span><span class="p">,</span> <span class="n">z_field</span><span class="p">]],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;Set3&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Boxplot&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Variables&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Values&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">y_field</span><span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="n">x_field</span><span class="p">,</span> <span class="n">y_field</span><span class="p">]],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;Set3&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Boxplot&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Variables&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Values&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="n">x_field</span><span class="p">]],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;Set3&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Boxplot&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Variables&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Values&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Histogram for x_field</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x_field</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histogram of </span><span class="si">{</span><span class="n">x_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Histogram for y_field (if provided)</span>
+    <span class="k">if</span> <span class="n">y_field</span><span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">y_field</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histogram of </span><span class="si">{</span><span class="n">y_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">y_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">z_field</span><span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">z_field</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histogram of </span><span class="si">{</span><span class="n">z_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">z_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>  <span class="c1"># Hide the third subplot if both y_field and z_field are not provided</span>
+    
+    <span class="c1"># Adjust layout</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+    <span class="c1"># Show plots</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="c1"># Calculate statistics for x_field, y_field, and z_field (if provided)</span>
+    <span class="n">stats_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">x_field</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Statistics for </span><span class="si">{</span><span class="n">x_field</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">stats_x</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">y_field</span><span class="p">:</span>
+        <span class="n">stats_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">y_field</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Statistics for </span><span class="si">{</span><span class="n">y_field</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">stats_y</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">z_field</span><span class="p">:</span>
+        <span class="n">stats_z</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">z_field</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Statistics for </span><span class="si">{</span><span class="n">z_field</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">stats_z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>The function to create a set of plots for specific fields in a dataframe:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">analyze_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+
+    <span class="c1"># 1: Plots and statistics for object dimention characteristics (width, length, height)</span>
+    <span class="n">plot_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 2: Plots and statistics for object route_length and distance between first and last point</span>
+    <span class="n">plot_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 3: Plots and statistics for ratio between route length and distance between first and last point</span>
+    <span class="n">plot_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;direct_real_d_ratio&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 4: Plots and statistics for total time</span>
+    <span class="n">plot_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;total_time&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 5: Plots and statistics for average velocity</span>
+    <span class="n">plot_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="cars">
+<h3>1. Cars<a class="headerlink" href="#cars" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_cars</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;object_type&#39;</span><span class="p">]</span> <span class="o">==</span><span class="s1">&#39;CAR&#39;</span><span class="p">]</span>
+<span class="n">lines_gdf_cars</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>total_time</th>
+      <th>avg_heading</th>
+      <th>avg_v</th>
+      <th>avg_width</th>
+      <th>avg_length</th>
+      <th>avg_height</th>
+      <th>object_type</th>
+      <th>time_class</th>
+      <th>avg_heading_change</th>
+      <th>...</th>
+      <th>PEDESTRIAN</th>
+      <th>top_object_type_percentage</th>
+      <th>route_length</th>
+      <th>total_time_s</th>
+      <th>direct_real_d_ratio</th>
+      <th>geometry</th>
+      <th>unique_object_types_sorted</th>
+      <th>typeChanges</th>
+      <th>typeChangesRate</th>
+      <th>bins</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>152997118</td>
+      <td>286302</td>
+      <td>133.7800</td>
+      <td>0.03</td>
+      <td>1.869</td>
+      <td>4.387</td>
+      <td>1.151</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.065886</td>
+      <td>...</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>102.985753</td>
+      <td>286.302</td>
+      <td>623.585910</td>
+      <td>LINESTRING (13.06440 47.81014, 13.06441 47.810...</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>152997182</td>
+      <td>270701</td>
+      <td>139.9335</td>
+      <td>0.02</td>
+      <td>1.912</td>
+      <td>4.523</td>
+      <td>1.690</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>-0.068684</td>
+      <td>...</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>60.296137</td>
+      <td>270.701</td>
+      <td>698.199732</td>
+      <td>LINESTRING (13.06413 47.81005, 13.06413 47.810...</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>152997183</td>
+      <td>101799</td>
+      <td>105.4660</td>
+      <td>0.01</td>
+      <td>1.872</td>
+      <td>4.867</td>
+      <td>1.566</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>-0.081633</td>
+      <td>...</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>144.550702</td>
+      <td>101.799</td>
+      <td>1.208331</td>
+      <td>LINESTRING (13.06339 47.80977, 13.06339 47.809...</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>152997184</td>
+      <td>100897</td>
+      <td>97.4585</td>
+      <td>0.01</td>
+      <td>1.974</td>
+      <td>5.000</td>
+      <td>1.615</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>-0.053851</td>
+      <td>...</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>144.484505</td>
+      <td>100.897</td>
+      <td>1.299410</td>
+      <td>LINESTRING (13.06339 47.80978, 13.06340 47.809...</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>152997753</td>
+      <td>109398</td>
+      <td>34.2955</td>
+      <td>0.04</td>
+      <td>2.227</td>
+      <td>5.777</td>
+      <td>2.422</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.225113</td>
+      <td>...</td>
+      <td>0</td>
+      <td>100.0</td>
+      <td>153.183233</td>
+      <td>109.398</td>
+      <td>2.013326</td>
+      <td>LINESTRING (13.06394 47.80935, 13.06394 47.809...</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 25 columns</p>
+</div></div></div>
+</div>
+<div class="section" id="ars-dimentions-width-and-height-length">
+<h4>СARS DIMENTIONS (width and height, length)<a class="headerlink" href="#ars-dimentions-width-and-height-length" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analyze_dataset</span><span class="p">(</span><span class="n">lines_gdf_cars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a09631924d0ed6e2f723e0a022312150e845a62ae3170a2fe087b7e590eef3ed.png" src="../_images/a09631924d0ed6e2f723e0a022312150e845a62ae3170a2fe087b7e590eef3ed.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for avg_width:
+count    4178.000000
+mean        1.899717
+std         0.577520
+min         0.054000
+25%         1.854250
+50%         1.923500
+75%         1.989000
+max        18.495000
+Name: avg_width, dtype: float64
+
+Statistics for avg_length:
+count    4178.000000
+mean        4.008679
+std         2.248963
+min         0.009000
+25%         4.023000
+50%         4.395000
+75%         4.664000
+max        18.706000
+Name: avg_length, dtype: float64
+
+Statistics for avg_height:
+count    4178.000000
+mean        1.136760
+std         0.694165
+min         0.004000
+25%         0.636625
+50%         1.145000
+75%         1.425000
+max         3.071000
+Name: avg_height, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/dc621c59493759e3467fd7c011553eb5e42e0dccd150f8771c891e789afc75ee.png" src="../_images/dc621c59493759e3467fd7c011553eb5e42e0dccd150f8771c891e789afc75ee.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for route_length:
+count    4178.000000
+mean       75.322052
+std        61.633961
+min         0.000000
+25%        21.538840
+50%        77.358236
+75%       112.704000
+max       784.263218
+Name: route_length, dtype: float64
+
+Statistics for distance_first_last:
+count    4178.000000
+mean       56.380821
+std        43.919954
+min         0.000000
+25%         9.259288
+50%        58.883808
+75%        93.647267
+max       149.418347
+Name: distance_first_last, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/038ed84d825923ad467a2036c0fb5f3b5944e6283209114bdffc5f3f767653ca.png" src="../_images/038ed84d825923ad467a2036c0fb5f3b5944e6283209114bdffc5f3f767653ca.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for direct_real_d_ratio:
+count    4176.000000
+mean             inf
+std              NaN
+min         1.000000
+25%         1.055816
+50%         1.156346
+75%         1.455117
+max              inf
+Name: direct_real_d_ratio, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/20191a0a27e46e3511e651e71e1eb58d8e6f8aac509e6d13e7f80c126f2f1863.png" src="../_images/20191a0a27e46e3511e651e71e1eb58d8e6f8aac509e6d13e7f80c126f2f1863.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for total_time:
+count      4178.000000
+mean      31888.159167
+std       44217.103261
+min          91.000000
+25%        5098.500000
+50%       14200.000000
+75%       51098.000000
+max      975498.000000
+Name: total_time, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/c79d95e853723a79301b8dde9b3b4fbe066d658ea37a52027ebbf2ef957d0e1f.png" src="../_images/c79d95e853723a79301b8dde9b3b4fbe066d658ea37a52027ebbf2ef957d0e1f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for avg_v:
+count    4178.000000
+mean        3.500172
+std         3.425574
+min         0.000000
+25%         0.120000
+50%         2.662500
+75%         6.160000
+max        14.745000
+Name: avg_v, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Based on this cahracteristics we can distinguish statistical outliers and use it as a data quality metrics</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">detect_outliers</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+    <span class="c1"># Create a copy of the DataFrame to avoid modifying the original</span>
+    <span class="n">df_outliers</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+        <span class="c1"># Calculate Q1 (25th percentile) and Q3 (75th percentile) for the column</span>
+        <span class="n">Q1</span> <span class="o">=</span> <span class="n">df_outliers</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+        <span class="n">Q3</span> <span class="o">=</span> <span class="n">df_outliers</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+        
+        <span class="c1"># Calculate IQR (Interquartile Range)</span>
+        <span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+        
+        <span class="c1"># Determine outlier boundaries</span>
+        <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+        <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+        
+        <span class="c1"># Create a new field indicating outliers</span>
+        <span class="n">outlier_field</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">_outlier&quot;</span>
+        <span class="n">df_outliers</span><span class="p">[</span><span class="n">outlier_field</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">df_outliers</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df_outliers</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        
+    <span class="c1"># Calculate the sum of outliers for each row</span>
+    <span class="n">outlier_columns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">_outlier&quot;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+    <span class="n">df_outliers</span><span class="p">[</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_outliers</span><span class="p">[</span><span class="n">outlier_columns</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">df_outliers</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
+<span class="n">cars_outliers</span> <span class="o">=</span> <span class="n">detect_outliers</span><span class="p">(</span><span class="n">lines_gdf_cars</span><span class="p">,</span> <span class="n">columns_to_check</span><span class="p">)</span>
+<span class="n">cars_outliers</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>total_time</th>
+      <th>avg_heading</th>
+      <th>avg_v</th>
+      <th>avg_width</th>
+      <th>avg_length</th>
+      <th>avg_height</th>
+      <th>object_type</th>
+      <th>time_class</th>
+      <th>avg_heading_change</th>
+      <th>...</th>
+      <th>typeChangesRate</th>
+      <th>bins</th>
+      <th>total_time_outlier</th>
+      <th>avg_v_outlier</th>
+      <th>avg_width_outlier</th>
+      <th>avg_height_outlier</th>
+      <th>avg_length_outlier</th>
+      <th>route_length_outlier</th>
+      <th>distance_first_last_outlier</th>
+      <th>total_outliers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>152997118</td>
+      <td>286302</td>
+      <td>133.7800</td>
+      <td>0.03</td>
+      <td>1.869</td>
+      <td>4.387</td>
+      <td>1.151</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.065886</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>152997182</td>
+      <td>270701</td>
+      <td>139.9335</td>
+      <td>0.02</td>
+      <td>1.912</td>
+      <td>4.523</td>
+      <td>1.690</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>-0.068684</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>152997183</td>
+      <td>101799</td>
+      <td>105.4660</td>
+      <td>0.01</td>
+      <td>1.872</td>
+      <td>4.867</td>
+      <td>1.566</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>-0.081633</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>152997184</td>
+      <td>100897</td>
+      <td>97.4585</td>
+      <td>0.01</td>
+      <td>1.974</td>
+      <td>5.000</td>
+      <td>1.615</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>-0.053851</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>152997753</td>
+      <td>109398</td>
+      <td>34.2955</td>
+      <td>0.04</td>
+      <td>2.227</td>
+      <td>5.777</td>
+      <td>2.422</td>
+      <td>CAR</td>
+      <td>0</td>
+      <td>0.225113</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 33 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the counts and percentages of each combination of time_class and total_outliers</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">cars_outliers</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="s1">&#39;total_outliers&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<span class="n">total_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
+<span class="n">counts</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_counts</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Pivot the data to prepare for plotting</span>
+<span class="n">pivot_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">]</span>  <span class="c1"># Define additional colors</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Add labels and title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Object Counts by time_class and total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage of Objects (%)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Show percentages inside each bar segment</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">cum_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cum_sum</span> <span class="o">+</span> <span class="n">value</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+        <span class="n">cum_sum</span> <span class="o">+=</span> <span class="n">value</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c9ea72b2a96d5572ff7d17ab4ea2ab0243e64e896653342523ae01b13b2b8251.png" src="../_images/c9ea72b2a96d5572ff7d17ab4ea2ab0243e64e896653342523ae01b13b2b8251.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="pedestrians">
+<h3>2. Pedestrians<a class="headerlink" href="#pedestrians" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_pedestrians</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;object_type&#39;</span><span class="p">]</span> <span class="o">==</span><span class="s1">&#39;PEDESTRIAN&#39;</span><span class="p">]</span>
+<span class="n">analyze_dataset</span><span class="p">(</span><span class="n">lines_gdf_pedestrians</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d44904200cec1bdcd0e6d12d03be1de509b3bdd66f882f79f07640d2d62e64cb.png" src="../_images/d44904200cec1bdcd0e6d12d03be1de509b3bdd66f882f79f07640d2d62e64cb.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for avg_width:
+count    1769.000000
+mean        0.517953
+std         0.210210
+min         0.064000
+25%         0.368000
+50%         0.503500
+75%         0.624000
+max         1.491000
+Name: avg_width, dtype: float64
+
+Statistics for avg_length:
+count    1769.000000
+mean        0.499413
+std         0.242799
+min         0.092000
+25%         0.315000
+50%         0.470000
+75%         0.595000
+max         2.364000
+Name: avg_length, dtype: float64
+
+Statistics for avg_height:
+count    1769.000000
+mean        1.109840
+std         0.360861
+min         0.048500
+25%         0.849000
+50%         1.123500
+75%         1.372500
+max         2.450000
+Name: avg_height, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/54e186f3bb86b28800d04e8cc7d7a859c34f9ab2f979036b253ca27c5ec66d2b.png" src="../_images/54e186f3bb86b28800d04e8cc7d7a859c34f9ab2f979036b253ca27c5ec66d2b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for route_length:
+count    1769.000000
+mean       24.235552
+std        44.936549
+min         0.000000
+25%         1.203799
+50%         6.902049
+75%        28.358431
+max       895.087643
+Name: route_length, dtype: float64
+
+Statistics for distance_first_last:
+count    1769.000000
+mean       14.300289
+std        25.493666
+min         0.000000
+25%         0.245034
+50%         2.382743
+75%        14.300744
+max       133.101487
+Name: distance_first_last, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/5e5d34109c48ad504b71fe3f38edbbeb51c70f8acddc35d6f2827bde24bcc389.png" src="../_images/5e5d34109c48ad504b71fe3f38edbbeb51c70f8acddc35d6f2827bde24bcc389.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for direct_real_d_ratio:
+count    1760.000000
+mean             inf
+std              NaN
+min         1.000000
+25%         1.092678
+50%         1.405990
+75%         4.543949
+max              inf
+Name: direct_real_d_ratio, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/97d152ed1ea2576014abae76f06cc495411b79af8b52099a92009a39d051a123.png" src="../_images/97d152ed1ea2576014abae76f06cc495411b79af8b52099a92009a39d051a123.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for total_time:
+count      1769.000000
+mean      29624.931034
+std       56806.996871
+min          93.000000
+25%        2400.000000
+50%        8596.000000
+75%       33999.000000
+max      769198.000000
+Name: total_time, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/a73cfcd8b1bdf1336707ccd99c192b9b562d2dbc5ef74c3f347bb8269f3c3740.png" src="../_images/a73cfcd8b1bdf1336707ccd99c192b9b562d2dbc5ef74c3f347bb8269f3c3740.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for avg_v:
+count    1769.000000
+mean        0.726439
+std         0.721659
+min         0.000000
+25%         0.070000
+50%         0.600000
+75%         1.300000
+max         6.880000
+Name: avg_v, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
+<span class="n">pedestrians_outliers</span> <span class="o">=</span> <span class="n">detect_outliers</span><span class="p">(</span><span class="n">lines_gdf_pedestrians</span><span class="p">,</span> <span class="n">columns_to_check</span><span class="p">)</span>
+<span class="n">pedestrians_outliers</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>total_time</th>
+      <th>avg_heading</th>
+      <th>avg_v</th>
+      <th>avg_width</th>
+      <th>avg_length</th>
+      <th>avg_height</th>
+      <th>object_type</th>
+      <th>time_class</th>
+      <th>avg_heading_change</th>
+      <th>...</th>
+      <th>typeChangesRate</th>
+      <th>bins</th>
+      <th>total_time_outlier</th>
+      <th>avg_v_outlier</th>
+      <th>avg_width_outlier</th>
+      <th>avg_height_outlier</th>
+      <th>avg_length_outlier</th>
+      <th>route_length_outlier</th>
+      <th>distance_first_last_outlier</th>
+      <th>total_outliers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>152997181</td>
+      <td>138700</td>
+      <td>148.052</td>
+      <td>0.770</td>
+      <td>0.559</td>
+      <td>0.5585</td>
+      <td>1.3320</td>
+      <td>PEDESTRIAN</td>
+      <td>0</td>
+      <td>-0.048435</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>152997343</td>
+      <td>108398</td>
+      <td>228.052</td>
+      <td>0.100</td>
+      <td>0.659</td>
+      <td>0.6375</td>
+      <td>1.0935</td>
+      <td>PEDESTRIAN</td>
+      <td>0</td>
+      <td>-0.075645</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>95-100%</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>152997466</td>
+      <td>115007</td>
+      <td>233.052</td>
+      <td>0.070</td>
+      <td>0.459</td>
+      <td>0.5000</td>
+      <td>1.4510</td>
+      <td>PEDESTRIAN</td>
+      <td>0</td>
+      <td>-0.175439</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>95-100%</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>152997836</td>
+      <td>109009</td>
+      <td>134.466</td>
+      <td>0.020</td>
+      <td>0.574</td>
+      <td>0.6820</td>
+      <td>1.2320</td>
+      <td>PEDESTRIAN</td>
+      <td>0</td>
+      <td>-0.089454</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>95-100%</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>152997959</td>
+      <td>116001</td>
+      <td>223.052</td>
+      <td>0.585</td>
+      <td>0.448</td>
+      <td>0.3850</td>
+      <td>1.1940</td>
+      <td>PEDESTRIAN</td>
+      <td>0</td>
+      <td>0.288462</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 33 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the counts and percentages of each combination of time_class and total_outliers</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">pedestrians_outliers</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="s1">&#39;total_outliers&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<span class="n">total_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
+<span class="n">counts</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_counts</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Pivot the data to prepare for plotting</span>
+<span class="n">pivot_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">]</span>  <span class="c1"># Define additional colors</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Add labels and title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Object Counts by time_class and total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage of Objects (%)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Show percentages inside each bar segment</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">cum_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cum_sum</span> <span class="o">+</span> <span class="n">value</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+        <span class="n">cum_sum</span> <span class="o">+=</span> <span class="n">value</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/13982e063d36edf4e0c85321a3b8bb9b74c8825e5b9a9220dce769af96bcb3b5.png" src="../_images/13982e063d36edf4e0c85321a3b8bb9b74c8825e5b9a9220dce769af96bcb3b5.png" />
+</div>
+</div>
+</div>
+<div class="section" id="two-wheelers">
+<h3>3. Two-Wheelers<a class="headerlink" href="#two-wheelers" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_two_wheelers</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;object_type&#39;</span><span class="p">]</span> <span class="o">==</span><span class="s1">&#39;CYCLIST&#39;</span><span class="p">]</span>
+<span class="n">analyze_dataset</span><span class="p">(</span><span class="n">lines_gdf_two_wheelers</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cbc6b9eae98874dbd7f2e6267384bac91d746f201d6efbdb5fecaab6d49045d7.png" src="../_images/cbc6b9eae98874dbd7f2e6267384bac91d746f201d6efbdb5fecaab6d49045d7.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for avg_width:
+count    250.000000
+mean       0.632556
+std        0.207776
+min        0.112500
+25%        0.541625
+50%        0.623000
+75%        0.697250
+max        1.714000
+Name: avg_width, dtype: float64
+
+Statistics for avg_length:
+count    250.000000
+mean       1.252888
+std        0.498308
+min        0.076000
+25%        0.898750
+50%        1.250000
+75%        1.629125
+max        3.735000
+Name: avg_length, dtype: float64
+
+Statistics for avg_height:
+count    250.000000
+mean       1.285610
+std        0.310616
+min        0.019000
+25%        1.155250
+50%        1.344250
+75%        1.445750
+max        2.803000
+Name: avg_height, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/a256fb9425f019eb5b6ab9ee009982797f7d91872b6f2b6ce4f7449c4e17ce9a.png" src="../_images/a256fb9425f019eb5b6ab9ee009982797f7d91872b6f2b6ce4f7449c4e17ce9a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for route_length:
+count    250.000000
+mean      76.275553
+std       58.753900
+min        0.022234
+25%       22.881110
+50%       84.569250
+75%      113.700210
+max      559.920694
+Name: route_length, dtype: float64
+
+Statistics for distance_first_last:
+count    250.000000
+mean      63.831372
+std       43.892981
+min        0.000000
+25%       18.486127
+50%       75.049915
+75%       99.808464
+max      135.982695
+Name: distance_first_last, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/8a3297e87d5b3f916d3c6887513525838478718b856b69b2578702c78c8f9fed.png" src="../_images/8a3297e87d5b3f916d3c6887513525838478718b856b69b2578702c78c8f9fed.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for direct_real_d_ratio:
+count    250.000000
+mean            inf
+std             NaN
+min        1.000000
+25%        1.026796
+50%        1.087646
+75%        1.246673
+max             inf
+Name: direct_real_d_ratio, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/906eca88f9723e24172f7f907828a93329cc1f14df830a97af5eeee177124fd9.png" src="../_images/906eca88f9723e24172f7f907828a93329cc1f14df830a97af5eeee177124fd9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for total_time:
+count       250.000000
+mean      31482.288000
+std       33844.385272
+min          94.000000
+25%        8623.250000
+50%       19600.000000
+75%       41577.000000
+max      216099.000000
+Name: total_time, dtype: float64
+</pre></div>
+</div>
+<img alt="../_images/c90f961b28a24bfe0aa1a272444177ac33cc5f2219e58b40e203a670bea76687.png" src="../_images/c90f961b28a24bfe0aa1a272444177ac33cc5f2219e58b40e203a670bea76687.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for avg_v:
+count    250.000000
+mean       3.245340
+std        2.823628
+min        0.000000
+25%        1.022500
+50%        2.695000
+75%        5.335000
+max       13.430000
+Name: avg_v, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
+<span class="n">two_wheelers_outliers</span> <span class="o">=</span> <span class="n">detect_outliers</span><span class="p">(</span><span class="n">lines_gdf_two_wheelers</span><span class="p">,</span> <span class="n">columns_to_check</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the counts and percentages of each combination of time_class and total_outliers</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">two_wheelers_outliers</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="s1">&#39;total_outliers&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<span class="n">total_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
+<span class="n">counts</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_counts</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Pivot the data to prepare for plotting</span>
+<span class="n">pivot_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">]</span>  <span class="c1"># Define additional colors</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Add labels and title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Object Counts by time_class and total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage of Objects (%)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Show percentages inside each bar segment</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">cum_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cum_sum</span> <span class="o">+</span> <span class="n">value</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+        <span class="n">cum_sum</span> <span class="o">+=</span> <span class="n">value</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5d57215e07091d25d57c06df69171ace67c09e691f8b80af96671a79f4a5d9f4.png" src="../_images/5d57215e07091d25d57c06df69171ace67c09e691f8b80af96671a79f4a5d9f4.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./sections"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1_dataProcessing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2. Data Processing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3_dataQualityAssesment.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">4. Data Quality Assesment</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-descriptive-satistics">General Descriptive Satistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-data">Reading data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">0. Object Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-data-with-typechanges">Exploring Data with TypeChanges</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-functions">Additional Functions</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">1. Cars</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ars-dimentions-width-and-height-length">СARS DIMENTIONS (width and height, length)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">2. Pedestrians</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">3. Two-Wheelers</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bella Mironova
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

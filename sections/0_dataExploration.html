@@ -1,0 +1,979 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1. Reading and Exploring Data &#8212; Analyzing and visualizing moving objects at intersections</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sections/0_dataExploration';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Data Processing" href="1_dataProcessing.html" />
+    <link rel="prev" title="Analyzing and visualizing moving objects at intersections" href="../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Analyzing and visualizing moving objects at intersections</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Analyzing and visualizing moving objects at intersections
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Reading and Exploring Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_dataProcessing.html">2. Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_descriptiveStatistics.html">3. Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_dataQualityAssesment.html">4. Data Quality Assesment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_countingByDirection.html">5. Counting Objects in Each Direction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_conclusions.html">6. Conclusion</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bella-mir/lbs_lidarData_analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bella-mir/lbs_lidarData_analysis/issues/new?title=Issue%20on%20page%20%2Fsections/0_dataExploration.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/sections/0_dataExploration.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1. Reading and Exploring Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Reading and Exploring Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-the-data">Exploring the data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#area-of-research">Area of Research</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time">Time</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#total-observations">Total observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-status">Tracking Status</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filterting-objects-based-on-tracking-status-and-calculating-new-number-of-observations">Filterting Objects Based on Tracking Status and Calculating New Number of Observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objects-types">Objects Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filterting-objects-based-on-object-type-and-calculating-new-number-of-observations">Filterting Objects Based on Object Type and Calculating New Number of Observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#share-of-all-data-left-after-the-first-filters-applied">Share of all data left after the first filters applied</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="reading-and-exploring-data">
+<h1>1. Reading and Exploring Data<a class="headerlink" href="#reading-and-exploring-data" title="Permalink to this heading">#</a></h1>
+<div class="section" id="import-libraries">
+<h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
+<p>We are importing different libraries for the data processing and analysis</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Reading and Exploring Data<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>The dataset was provided with the task as a csv file with documentation describing data in different columns. It contains data as output from LiDAR-based Multiple Object Tracking system. In the following steps we will explore the dataset.</p>
+<p>Reading dataset and getting general info about data in different columns, showing the head part of the dataframe:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/full_intersection_15.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 2563480 entries, 0 to 2563479
+Data columns (total 11 columns):
+ #   Column           Dtype  
+---  ------           -----  
+ 0   object_id        int64  
+ 1   timestamp        int64  
+ 2   heading          float64
+ 3   height           float64
+ 4   width            float64
+ 5   length           float64
+ 6   v                float64
+ 7   tracking_status  object 
+ 8   object_type      object 
+ 9   lon              float64
+ 10  lat              float64
+dtypes: float64(7), int64(2), object(2)
+memory usage: 215.1+ MB
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>timestamp</th>
+      <th>heading</th>
+      <th>height</th>
+      <th>width</th>
+      <th>length</th>
+      <th>v</th>
+      <th>tracking_status</th>
+      <th>object_type</th>
+      <th>lon</th>
+      <th>lat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>152997118</td>
+      <td>1712062811083</td>
+      <td>132.072</td>
+      <td>0.735</td>
+      <td>1.942</td>
+      <td>4.387</td>
+      <td>0.03</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>152997118</td>
+      <td>1712062811183</td>
+      <td>132.286</td>
+      <td>0.731</td>
+      <td>1.861</td>
+      <td>4.320</td>
+      <td>0.04</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>152997118</td>
+      <td>1712062811283</td>
+      <td>132.229</td>
+      <td>0.739</td>
+      <td>1.955</td>
+      <td>4.395</td>
+      <td>0.03</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>152997118</td>
+      <td>1712062811386</td>
+      <td>131.980</td>
+      <td>0.729</td>
+      <td>1.942</td>
+      <td>4.367</td>
+      <td>0.04</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810135</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>152997118</td>
+      <td>1712062811485</td>
+      <td>132.020</td>
+      <td>0.737</td>
+      <td>1.875</td>
+      <td>4.328</td>
+      <td>0.02</td>
+      <td>TRACKING</td>
+      <td>CAR</td>
+      <td>13.064405</td>
+      <td>47.810136</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The data has 2563480 entires (trajectory points) with different characteristics such as object_id, timestamp (in ms), longitude and latitude, heading, height, width, length of the vehicle, velocity, tracking status and object_type</p>
+</div>
+<div class="section" id="exploring-the-data">
+<h2>Exploring the data<a class="headerlink" href="#exploring-the-data" title="Permalink to this heading">#</a></h2>
+<div class="section" id="area-of-research">
+<h3>Area of Research<a class="headerlink" href="#area-of-research" title="Permalink to this heading">#</a></h3>
+<p>The data was collected in <strong>Salzburg, Austria</strong> at the intersection of Sterneckstraße, Linzer Bunderrtraße, Ignaz-Härtl-Straße and Fürbergstraße</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buffer</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">([</span><span class="n">Point</span><span class="p">(</span><span class="mf">13.064405</span><span class="p">,</span> <span class="mf">47.810136</span><span class="p">)],</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">32633</span><span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">buffer_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="n">buffer</span><span class="p">,</span> <span class="n">crs</span> <span class="o">=</span><span class="mi">32633</span> <span class="p">)</span>
+<span class="n">buffer_gdf</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;Esri.WorldImagery&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span><iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    
+    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+    
+        &lt;script&gt;
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        &lt;/script&gt;
+    
+    &lt;style&gt;html, body {width: 100%;height: 100%;margin: 0;padding: 0;}&lt;/style&gt;
+    &lt;style&gt;#map {position:absolute;top:0;bottom:0;right:0;left:0;}&lt;/style&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/&gt;
+    
+            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
+            &lt;style&gt;
+                #map_816c66881911533b3fbf00e0abdf8893 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            &lt;/style&gt;
+        
+    
+                    &lt;style&gt;
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    &lt;/style&gt;
+            
+&lt;/head&gt;
+&lt;body&gt;
+    
+    
+            &lt;div class=&quot;folium-map&quot; id=&quot;map_816c66881911533b3fbf00e0abdf8893&quot; &gt;&lt;/div&gt;
+        
+&lt;/body&gt;
+&lt;script&gt;
+    
+    
+            var map_816c66881911533b3fbf00e0abdf8893 = L.map(
+                &quot;map_816c66881911533b3fbf00e0abdf8893&quot;,
+                {
+                    center: [47.81013599968148, 13.06440500325907],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_816c66881911533b3fbf00e0abdf8893);
+
+            
+
+        
+    
+            var tile_layer_aa097465c996fbbe8cf428169f9a269f = L.tileLayer(
+                &quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}&quot;,
+                {&quot;attribution&quot;: &quot;Tiles \u0026copy; Esri \u0026mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_816c66881911533b3fbf00e0abdf8893);
+        
+    
+            map_816c66881911533b3fbf00e0abdf8893.fitBounds(
+                [[47.80833753058255, 13.061735189730241], [47.8119344687804, 13.0670748167879]],
+                {}
+            );
+        
+    
+        function geo_json_2f87445bcb8323641ca2f73998cfb6ac_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
+            }
+        }
+        function geo_json_2f87445bcb8323641ca2f73998cfb6ac_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.75};
+            }
+        }
+        function geo_json_2f87445bcb8323641ca2f73998cfb6ac_pointToLayer(feature, latlng) {
+            var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
+            
+            let style = geo_json_2f87445bcb8323641ca2f73998cfb6ac_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_2f87445bcb8323641ca2f73998cfb6ac_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        geo_json_2f87445bcb8323641ca2f73998cfb6ac.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        const highlightStyle = geo_json_2f87445bcb8323641ca2f73998cfb6ac_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_2f87445bcb8323641ca2f73998cfb6ac = L.geoJson(null, {
+                onEachFeature: geo_json_2f87445bcb8323641ca2f73998cfb6ac_onEachFeature,
+            
+                style: geo_json_2f87445bcb8323641ca2f73998cfb6ac_styler,
+                pointToLayer: geo_json_2f87445bcb8323641ca2f73998cfb6ac_pointToLayer
+        });
+
+        function geo_json_2f87445bcb8323641ca2f73998cfb6ac_add (data) {
+            geo_json_2f87445bcb8323641ca2f73998cfb6ac
+                .addData(data)
+                .addTo(map_816c66881911533b3fbf00e0abdf8893);
+        }
+            geo_json_2f87445bcb8323641ca2f73998cfb6ac_add({&quot;bbox&quot;: [13.061735189730241, 47.80833753058255, 13.0670748167879, 47.8119344687804], &quot;features&quot;: [{&quot;bbox&quot;: [13.061735189730241, 47.80833753058255, 13.0670748167879, 47.8119344687804], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.0670748167879, 47.8101810023036], [13.067068504468779, 47.810004504677735], [13.067036541312305, 47.80982927371439], [13.066979235395179, 47.809656996966], [13.066897138842565, 47.809489333517995], [13.066791042501693, 47.80932789801216], [13.066661968317385, 47.80917424509868], [13.066511159483301, 47.809029854466466], [13.066340068463978, 47.80889611659552], [13.066150343003207, 47.80877431936924], [13.065943810253707, 47.80866563567439], [13.06572245918091, 47.80857111210914], [13.065488421410357, 47.808491658906874], [13.065243950703072, 47.80842804117329], [13.064991401256393, 47.80838087152083], [13.064733205039039, 47.80835060417113], [13.064471848378398, 47.80833753058255], [13.064209848025177, 47.80834177664444], [13.06394972692559, 47.808363301465484], [13.063693989934011, 47.808401897767446], [13.063445099699619, 47.80845719388067], [13.063205452958872, 47.808528657322164], [13.062977357461808, 47.808615599921886], [13.062763009754008, 47.80871718444777], [13.062564474028017, 47.80883243266593], [13.062383662247607, 47.80896023475852], [13.062222315736198, 47.80909936000854], [13.062081988406705, 47.80924846864909], [13.061964031794274, 47.80940612476263], [13.061869582036183, 47.80957081010668], [13.061799548924432, 47.80974093873252], [13.061754607136674, 47.80991487225635], [13.061735189730241, 47.81009093563607], [13.061741483962201, 47.81026743330154], [13.061773429476107, 47.81044266548319], [13.06183071887325, 47.81061494458177], [13.061912800663318, 47.810782611421544], [13.0620188845664, 47.81094405123039], [13.062147949115651, 47.81109770919273], [13.062298751487678, 47.81124210542566], [13.062469839466283, 47.811375849233904], [13.062659565424521, 47.81149765250596], [13.062866102190561, 47.81160634212268], [13.063087460644617, 47.81170087125834], [13.063321508877488, 47.81178032946549], [13.063565992726089, 47.811843951446065], [13.063818557488071, 47.81189112442445], [13.064076770606155, 47.81192139405118], [13.064338145103468, 47.8119344687804], [13.064600163543847, 47.81193022267893], [13.064860302286002, 47.81190869663956], [13.065116055797565, 47.81187009798741], [13.065364960794502, 47.811814798482416], [13.065604619973039, 47.811743330737926], [13.065832725105164, 47.811656383089336], [13.066047079275018, 47.81155479296274], [13.066245618041728, 47.81143953880725], [13.066426429324672, 47.811311730668905], [13.06658777181954, 47.81117259949701], [13.066728091767773, 47.81102348528605], [13.066846037917887, 47.810865824167635], [13.066940474534661, 47.8107011345766], [13.06701049233111, 47.810531002624835], [13.067055417218137, 47.81035706682396], [13.0670748167879, 47.8101810023036]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+
+        
+    
+    geo_json_2f87445bcb8323641ca2f73998cfb6ac.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create(&#x27;div&#x27;);
+    
+    return div
+    }
+    ,{&quot;className&quot;: &quot;foliumtooltip&quot;, &quot;sticky&quot;: true});
+                     
+&lt;/script&gt;
+&lt;/html&gt;" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
+</div>
+</div>
+<div class="section" id="time">
+<h3>Time<a class="headerlink" href="#time" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minData</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span>
+<span class="n">maxData</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;It was collected from: </span><span class="si">%s</span><span class="s2">, To: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">minData</span><span class="p">,</span> <span class="n">maxData</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>It was collected from: 2024-04-02 16:00:00, To: 2024-04-02 16:59:59
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="total-observations">
+<h3>Total observations<a class="headerlink" href="#total-observations" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total observations in a raw dataset: </span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total unique objects: </span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total observations in a raw dataset: 28198280
+Total unique objects: 34580
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="tracking-status">
+<h3>Tracking Status<a class="headerlink" href="#tracking-status" title="Permalink to this heading">#</a></h3>
+<p>On of the main points characteristics is tracking status. Let’s see the structure for points based on this column:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_by_status</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;tracking_status&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">data_by_status</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">autopct</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;Set2&quot;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution by Tracking Status&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7cf7d0b70d7f1748a031f66268fdf087fcbf9806627121fd029d47501a93288c.png" src="../_images/7cf7d0b70d7f1748a031f66268fdf087fcbf9806627121fd029d47501a93288c.png" />
+</div>
+</div>
+<p>More than 82% of all points have “TRACKING” status which shows “stable tracking”. Other categories are “INVALIDATING”, “DRIFTING” and “VALIDATING” are not considered as ‘stable tracking’ and we will filter this data and won’t consider in the following analysis</p>
+</div>
+<div class="section" id="filterting-objects-based-on-tracking-status-and-calculating-new-number-of-observations">
+<h3>Filterting Objects Based on Tracking Status and Calculating New Number of Observations<a class="headerlink" href="#filterting-objects-based-on-tracking-status-and-calculating-new-number-of-observations" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_cleaned</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;tracking_status&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;TRACKING&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observations Total (cleaned data): </span><span class="si">%i</span><span class="s2">. Share of raw: </span><span class="si">%i</span><span class="s2"> percent&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">data_cleaned</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="p">(</span><span class="n">data_cleaned</span><span class="o">.</span><span class="n">size</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total unique objects (cleaned data): </span><span class="si">%i</span><span class="s2">. Share of raw: </span><span class="si">%i</span><span class="s2"> percent&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span> <span class="p">(</span><span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="o">/</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observations Total (cleaned data): 23349700. Share of raw: 82 percent
+Total unique objects (cleaned data): 11025. Share of raw: 31 percent
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="objects-types">
+<h3>Objects Types<a class="headerlink" href="#objects-types" title="Permalink to this heading">#</a></h3>
+<p>The data was collected for different object types: cars, two-wheelers, and pedestrians. Let’s explore the share of each object type in the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_by_object</span> <span class="o">=</span> <span class="n">data_cleaned</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;object_type&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">data_by_object</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">autopct</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;Set2&quot;</span><span class="p">))</span>
+
+<span class="c1"># Set title and show plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution by Object Type&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2d8e50ee59a39f2ce07d6b0ed94b74158ad67a2c1456ac3db4733c5d2fdf115d.png" src="../_images/2d8e50ee59a39f2ce07d6b0ed94b74158ad67a2c1456ac3db4733c5d2fdf115d.png" />
+</div>
+</div>
+<p>More than 58% are cars, around 21% are pedestrians, and 4% are two-wheelers. Additionally, 15.78% are classified as “MISC,” which means that the objects are not considered part of any of the three main classes. We will filter out these objects and, in the following analysis, consider only the three main types.</p>
+</div>
+<div class="section" id="filterting-objects-based-on-object-type-and-calculating-new-number-of-observations">
+<h3>Filterting Objects Based on Object Type and Calculating New Number of Observations<a class="headerlink" href="#filterting-objects-based-on-object-type-and-calculating-new-number-of-observations" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_cleaned</span> <span class="o">=</span> <span class="n">data_cleaned</span><span class="p">[</span><span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;object_type&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;MISC&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="share-of-all-data-left-after-the-first-filters-applied">
+<h3>Share of all data left after the first filters applied<a class="headerlink" href="#share-of-all-data-left-after-the-first-filters-applied" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observations Total (cleaned data): </span><span class="si">%i</span><span class="s2">. Share of raw: </span><span class="si">%i</span><span class="s2"> percent&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">data_cleaned</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="p">(</span><span class="n">data_cleaned</span><span class="o">.</span><span class="n">size</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total unique objects (cleaned data): </span><span class="si">%i</span><span class="s2">. Share of raw: </span><span class="si">%i</span><span class="s2"> percent&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span> <span class="p">(</span><span class="n">data_cleaned</span><span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="o">/</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observations Total (cleaned data): 19664513. Share of raw: 69 percent
+Total unique objects (cleaned data): 6500. Share of raw: 18 percent
+</pre></div>
+</div>
+</div>
+</div>
+<p>After filtering out irrelevant data based on “Tracking Status” and “Object Type,” we have prepared the data for further analysis. Approximately 70% of all points and only 18% of unique objects remain. This indicates that the filtered objects had significantly fewer points on average, supporting the idea that the filtered data was indeed irrelevant.</p>
+</div>
+<div class="section" id="saving-final-result">
+<h3>Saving Final Result<a class="headerlink" href="#saving-final-result" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#data_cleaned.to_csv(&#39;data/1_data_cleaned.csv&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./sections"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Analyzing and visualizing moving objects at intersections</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1_dataProcessing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2. Data Processing</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Reading and Exploring Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-the-data">Exploring the data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#area-of-research">Area of Research</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time">Time</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#total-observations">Total observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-status">Tracking Status</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filterting-objects-based-on-tracking-status-and-calculating-new-number-of-observations">Filterting Objects Based on Tracking Status and Calculating New Number of Observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objects-types">Objects Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filterting-objects-based-on-object-type-and-calculating-new-number-of-observations">Filterting Objects Based on Object Type and Calculating New Number of Observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#share-of-all-data-left-after-the-first-filters-applied">Share of all data left after the first filters applied</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bella Mironova
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
