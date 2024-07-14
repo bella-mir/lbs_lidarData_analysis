@@ -1,15 +1,4 @@
 Traceback (most recent call last):
-  File "/Users/belka/Library/Python/3.10/lib/python/site-packages/nbclient/client.py", line 776, in _async_poll_for_reply
-    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
-  File "/Users/belka/Library/Python/3.10/lib/python/site-packages/jupyter_core/utils/__init__.py", line 182, in ensure_async
-    result = await obj
-  File "/Users/belka/Library/Python/3.10/lib/python/site-packages/jupyter_client/channels.py", line 315, in get_msg
-    raise Empty
-_queue.Empty
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
   File "/Users/belka/Library/Python/3.10/lib/python/site-packages/nbclient/client.py", line 1265, in execute
@@ -20,22 +9,35 @@ Traceback (most recent call last):
     return future.result()
   File "/Users/belka/Library/Python/3.10/lib/python/site-packages/nbclient/client.py", line 703, in async_execute
     await self.async_execute_cell(
-  File "/Users/belka/Library/Python/3.10/lib/python/site-packages/nbclient/client.py", line 1002, in async_execute_cell
-    exec_reply = await self.task_poll_for_reply
-  File "/Users/belka/Library/Python/3.10/lib/python/site-packages/nbclient/client.py", line 800, in _async_poll_for_reply
-    error_on_timeout_execute_reply = await self._async_handle_timeout(timeout, cell)
-  File "/Users/belka/Library/Python/3.10/lib/python/site-packages/nbclient/client.py", line 852, in _async_handle_timeout
-    raise CellTimeoutError.error_from_timeout_and_cell(
-nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
-The message was: Cell execution timed out.
-Here is a preview of the cell contents:
--------------------
-points_gdf = gpd.read_file('data/2_points_gdf.gpkg')
-lines_gdf_stat = gpd.read_file('data/2_lines_gdf_stat.gpkg')
+  File "/Users/belka/Library/Python/3.10/lib/python/site-packages/nbclient/client.py", line 1021, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/belka/Library/Python/3.10/lib/python/site-packages/nbclient/client.py", line 915, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+startingPointsCars = starting_points[starting_points['object_type']=="CAR"]
+endingPointsCars = ending_points[ending_points['object_type']=="CAR"]
 
+startEndPointsCars = pd.concat([startingPointsCars, endingPointsCars], ignore_index=True)
+grid = create_regular_grid(startEndPointsCars, 7.5)
+grid.explore(tiles='Esri.WorldImagery')
+------------------
 
-lines_gdf_cars = lines_gdf_stat[lines_gdf_stat['object_type'] =='CAR']
-lines_gdf_pedestrians = lines_gdf_stat[lines_gdf_stat['object_type'] =='PEDESTRIAN']
-lines_gdf_two_wheelers = lines_gdf_stat[lines_gdf_stat['object_type'] =='CYCLIST']
--------------------
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[8], line 5[0m
+[1;32m      2[0m endingPointsCars [38;5;241m=[39m ending_points[ending_points[[38;5;124m'[39m[38;5;124mobject_type[39m[38;5;124m'[39m][38;5;241m==[39m[38;5;124m"[39m[38;5;124mCAR[39m[38;5;124m"[39m]
+[1;32m      4[0m startEndPointsCars [38;5;241m=[39m pd[38;5;241m.[39mconcat([startingPointsCars, endingPointsCars], ignore_index[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
+[0;32m----> 5[0m grid [38;5;241m=[39m [43mcreate_regular_grid[49m[43m([49m[43mstartEndPointsCars[49m[43m,[49m[43m [49m[38;5;241;43m7.5[39;49m[43m)[49m
+[1;32m      6[0m grid[38;5;241m.[39mexplore(tiles[38;5;241m=[39m[38;5;124m'[39m[38;5;124mEsri.WorldImagery[39m[38;5;124m'[39m)
+
+Cell [0;32mIn[7], line 14[0m, in [0;36mcreate_regular_grid[0;34m(gdf, square_size)[0m
+[1;32m     12[0m [38;5;28;01mwhile[39;00m y [38;5;241m<[39m[38;5;241m=[39m maxY:
+[1;32m     13[0m     [38;5;28;01mwhile[39;00m x [38;5;241m<[39m[38;5;241m=[39m maxX:
+[0;32m---> 14[0m         geom [38;5;241m=[39m [43mPolygon[49m([(x, y), (x, y [38;5;241m+[39m square_size), (x [38;5;241m+[39m square_size, y [38;5;241m+[39m square_size), (x [38;5;241m+[39m square_size, y), (x, y)])
+[1;32m     15[0m         grid_cells[38;5;241m.[39mappend(geom)
+[1;32m     16[0m         x [38;5;241m+[39m[38;5;241m=[39m square_size
+
+[0;31mNameError[0m: name 'Polygon' is not defined
+NameError: name 'Polygon' is not defined
 

@@ -1,6 +1,8 @@
 # Analyzing and visualizing moving objects at intersections
 
-Interactive Report by Bella Mironova, Anna Heinzel, Julia Eigner, Lea Ebenkofler
+Interactive Report
+
+Group members: Bella Mironova, Anna Heinzel, Julia Eigner, Lea Ebenkofler
 
 10/07/2024, TUW, Vienna
 

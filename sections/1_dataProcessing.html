@@ -153,7 +153,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="0_dataExploration.html">1. Reading and Exploring Data</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Data Processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_descriptiveStatistics.html">3. Descriptive Statistics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3_dataQualityAssesment.html">4. Data Quality Assesment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_qualityMetrics.html">4. Quality Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_countingByDirection.html">5. Counting Objects in Each Direction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5_conclusions.html">6. Conclusion</a></li>
 </ul>
@@ -380,10 +380,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPolygon</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">LineString</span>
 </pre></div>
 </div>
 </div>
@@ -970,15 +967,17 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Calculating length for each line</p>
+<p>Calculating total time and route length</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Calcualte length of each line</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Calculating Total Time</span>
+<span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;total_time_s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span>
+
+<span class="c1">#Calculating Route Length</span>
 <span class="n">lines_gdf_stat</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">lines_gdf</span><span class="o">.</span><span class="n">estimate_utm_crs</span><span class="p">())</span>
 <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;route_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">length</span>
 
-<span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;total_time_s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span>
-
+<span class="c1">#Calculating Ratio between Route Length and distance between the first and the last point</span>
 <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;direct_real_d_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;route_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">lines_gdf_stat</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
 
 <span class="n">lines_gdf_stat</span> <span class="o">=</span> <span class="n">lines_gdf_stat</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
@@ -1024,8 +1023,8 @@ document.write(`
       <th>CYCLIST</th>
       <th>PEDESTRIAN</th>
       <th>top_object_type_percentage</th>
-      <th>route_length</th>
       <th>total_time_s</th>
+      <th>route_length</th>
       <th>direct_real_d_ratio</th>
     </tr>
   </thead>
@@ -1050,8 +1049,8 @@ document.write(`
       <td>0</td>
       <td>0</td>
       <td>100.0</td>
-      <td>102.985753</td>
       <td>286.302</td>
+      <td>102.985753</td>
       <td>623.585910</td>
     </tr>
     <tr>
@@ -1074,8 +1073,8 @@ document.write(`
       <td>0</td>
       <td>1342</td>
       <td>100.0</td>
-      <td>110.534391</td>
       <td>138.700</td>
+      <td>110.534391</td>
       <td>1.684016</td>
     </tr>
     <tr>
@@ -1098,8 +1097,8 @@ document.write(`
       <td>0</td>
       <td>0</td>
       <td>100.0</td>
-      <td>60.296137</td>
       <td>270.701</td>
+      <td>60.296137</td>
       <td>698.199732</td>
     </tr>
     <tr>
@@ -1122,8 +1121,8 @@ document.write(`
       <td>0</td>
       <td>0</td>
       <td>100.0</td>
-      <td>144.550702</td>
       <td>101.799</td>
+      <td>144.550702</td>
       <td>1.208331</td>
     </tr>
     <tr>
@@ -1146,8 +1145,8 @@ document.write(`
       <td>0</td>
       <td>0</td>
       <td>100.0</td>
-      <td>144.484505</td>
       <td>100.897</td>
+      <td>144.484505</td>
       <td>1.299410</td>
     </tr>
   </tbody>

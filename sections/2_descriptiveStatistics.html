@@ -63,7 +63,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'sections/2_descriptiveStatistics';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. Data Quality Assesment" href="3_dataQualityAssesment.html" />
+    <link rel="next" title="4. Quality Metrics" href="3_qualityMetrics.html" />
     <link rel="prev" title="2. Data Processing" href="1_dataProcessing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -153,7 +153,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="0_dataExploration.html">1. Reading and Exploring Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1_dataProcessing.html">2. Data Processing</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Descriptive Statistics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3_dataQualityAssesment.html">4. Data Quality Assesment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_qualityMetrics.html">4. Quality Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_countingByDirection.html">5. Counting Objects in Each Direction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5_conclusions.html">6. Conclusion</a></li>
 </ul>
@@ -349,7 +349,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-descriptive-satistics">General Descriptive Satistics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-data">Reading data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">0. Object Types</a></li>
@@ -378,10 +377,7 @@ document.write(`
                   
   <div class="tex2jax_ignore mathjax_ignore section" id="descriptive-statistics">
 <h1>3. Descriptive Statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this heading">#</a></h1>
-<div class="section" id="general-descriptive-satistics">
-<h2>General Descriptive Satistics<a class="headerlink" href="#general-descriptive-satistics" title="Permalink to this heading">#</a></h2>
 <p>This section is about exploring object types, there change and summary statisctics</p>
-</div>
 <div class="section" id="import-libraries">
 <h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -390,7 +386,6 @@ document.write(`
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPolygon</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
@@ -890,15 +885,20 @@ Name: avg_v_change, dtype: float64
     <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
     
     <span class="c1"># Histogram for y_field (if provided)</span>
-    <span class="k">if</span> <span class="n">y_field</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">y_field</span> <span class="ow">and</span> <span class="n">z_field</span><span class="p">:</span>
         <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">y_field</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histogram of </span><span class="si">{</span><span class="n">y_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">y_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">z_field</span><span class="p">:</span>
+
         <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">z_field</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histogram of </span><span class="si">{</span><span class="n">z_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">z_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">y_field</span> <span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">y_field</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histogram of </span><span class="si">{</span><span class="n">y_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">y_field</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>  <span class="c1"># Hide the third subplot if both y_field and z_field are not provided</span>
@@ -1140,7 +1140,7 @@ Name: avg_v_change, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a09631924d0ed6e2f723e0a022312150e845a62ae3170a2fe087b7e590eef3ed.png" src="../_images/a09631924d0ed6e2f723e0a022312150e845a62ae3170a2fe087b7e590eef3ed.png" />
+<img alt="../_images/eacd2f9bcb27ab5008b763fa5b0f28890872bf1eafea0eb7fac9ab9fc14a5515.png" src="../_images/eacd2f9bcb27ab5008b763fa5b0f28890872bf1eafea0eb7fac9ab9fc14a5515.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for avg_width:
 count    4178.000000
 mean        1.899717
@@ -1240,254 +1240,38 @@ Name: avg_v, dtype: float64
 </div>
 </div>
 </div>
-<p>Based on this cahracteristics we can distinguish statistical outliers and use it as a data quality metrics</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">detect_outliers</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
-    <span class="c1"># Create a copy of the DataFrame to avoid modifying the original</span>
-    <span class="n">df_outliers</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    
-    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
-        <span class="c1"># Calculate Q1 (25th percentile) and Q3 (75th percentile) for the column</span>
-        <span class="n">Q1</span> <span class="o">=</span> <span class="n">df_outliers</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
-        <span class="n">Q3</span> <span class="o">=</span> <span class="n">df_outliers</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
-        
-        <span class="c1"># Calculate IQR (Interquartile Range)</span>
-        <span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
-        
-        <span class="c1"># Determine outlier boundaries</span>
-        <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
-        <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
-        
-        <span class="c1"># Create a new field indicating outliers</span>
-        <span class="n">outlier_field</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">_outlier&quot;</span>
-        <span class="n">df_outliers</span><span class="p">[</span><span class="n">outlier_field</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">df_outliers</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df_outliers</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-        
-    <span class="c1"># Calculate the sum of outliers for each row</span>
-    <span class="n">outlier_columns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">_outlier&quot;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
-    <span class="n">df_outliers</span><span class="p">[</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_outliers</span><span class="p">[</span><span class="n">outlier_columns</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">df_outliers</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
-<span class="n">cars_outliers</span> <span class="o">=</span> <span class="n">detect_outliers</span><span class="p">(</span><span class="n">lines_gdf_cars</span><span class="p">,</span> <span class="n">columns_to_check</span><span class="p">)</span>
-<span class="n">cars_outliers</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>object_id</th>
-      <th>total_time</th>
-      <th>avg_heading</th>
-      <th>avg_v</th>
-      <th>avg_width</th>
-      <th>avg_length</th>
-      <th>avg_height</th>
-      <th>object_type</th>
-      <th>time_class</th>
-      <th>avg_heading_change</th>
-      <th>...</th>
-      <th>typeChangesRate</th>
-      <th>bins</th>
-      <th>total_time_outlier</th>
-      <th>avg_v_outlier</th>
-      <th>avg_width_outlier</th>
-      <th>avg_height_outlier</th>
-      <th>avg_length_outlier</th>
-      <th>route_length_outlier</th>
-      <th>distance_first_last_outlier</th>
-      <th>total_outliers</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>152997118</td>
-      <td>286302</td>
-      <td>133.7800</td>
-      <td>0.03</td>
-      <td>1.869</td>
-      <td>4.387</td>
-      <td>1.151</td>
-      <td>CAR</td>
-      <td>0</td>
-      <td>0.065886</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>152997182</td>
-      <td>270701</td>
-      <td>139.9335</td>
-      <td>0.02</td>
-      <td>1.912</td>
-      <td>4.523</td>
-      <td>1.690</td>
-      <td>CAR</td>
-      <td>0</td>
-      <td>-0.068684</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>152997183</td>
-      <td>101799</td>
-      <td>105.4660</td>
-      <td>0.01</td>
-      <td>1.872</td>
-      <td>4.867</td>
-      <td>1.566</td>
-      <td>CAR</td>
-      <td>0</td>
-      <td>-0.081633</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>152997184</td>
-      <td>100897</td>
-      <td>97.4585</td>
-      <td>0.01</td>
-      <td>1.974</td>
-      <td>5.000</td>
-      <td>1.615</td>
-      <td>CAR</td>
-      <td>0</td>
-      <td>-0.053851</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>152997753</td>
-      <td>109398</td>
-      <td>34.2955</td>
-      <td>0.04</td>
-      <td>2.227</td>
-      <td>5.777</td>
-      <td>2.422</td>
-      <td>CAR</td>
-      <td>0</td>
-      <td>0.225113</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 33 columns</p>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the counts and percentages of each combination of time_class and total_outliers</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">cars_outliers</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="s1">&#39;total_outliers&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
-<span class="n">total_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
-<span class="n">counts</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_counts</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-
-<span class="c1"># Pivot the data to prepare for plotting</span>
-<span class="n">pivot_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># Plotting</span>
-<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">]</span>  <span class="c1"># Define additional colors</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-
-<span class="c1"># Add labels and title</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Object Counts by time_class and total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage of Objects (%)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># Show percentages inside each bar segment</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-    <span class="n">total</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="n">cum_sum</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cum_sum</span> <span class="o">+</span> <span class="n">value</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-        <span class="n">cum_sum</span> <span class="o">+=</span> <span class="n">value</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/c9ea72b2a96d5572ff7d17ab4ea2ab0243e64e896653342523ae01b13b2b8251.png" src="../_images/c9ea72b2a96d5572ff7d17ab4ea2ab0243e64e896653342523ae01b13b2b8251.png" />
-</div>
-</div>
+<p><strong>Average Width (avg_width):</strong></p>
+<p>The average width of cars is approximately 1.90 meters, with a standard deviation of 0.58 meters. This indicates that most objects have a width close to the mean, with some variability.
+The minimum recorded width is 0.05 meters, while the maximum is significantly higher at 18.50 meters, suggesting a wide range of object sizes.
+The interquartile range (IQR), which includes the 25th to 75th percentiles, is narrow (1.85 to 1.99 meters), indicating that the majority of objects fall within this range.</p>
+<p><strong>Average Length (avg_length):</strong></p>
+<p>The mean length of objects is 4.01 meters, with a standard deviation of 2.25 meters, showing a considerable spread around the mean.
+Object lengths vary from as short as 0.009 meters to as long as 18.71 meters.
+The IQR (4.02 to 4.66 meters) suggests that many objects are close to the mean length, with fewer extreme values.</p>
+<p><strong>Average Height (avg_height):</strong></p>
+<p>The average height is 1.08 meters, with a standard deviation of 0.44 meters.
+Heights range from 0.00 meters to 3.07 meters, indicating the presence of both very short and relatively tall objects.
+The IQR (1.02 to 1.43 meters) suggests that most objects have a height within this range.</p>
+<p><strong>Mean Route Length (route_length):</strong></p>
+<p>The mean route length is 75.32 meters, with a standard deviation of 61.63 meters, reflecting a high variability in the distances traveled by the objects.
+Route lengths range from 0.00 meters to 784.26 meters.
+The IQR (21.54 to 112.70 meters) indicates that most objects travel distances within this range.</p>
+<p><strong>Distance between the first and last points (distance_first_last):</strong></p>
+<p>The mean distance between the first and last detected points is 56.38 meters, with a standard deviation of 43.92 meters.
+Distances vary widely, from 0.00 meters to 149.42 meters.
+The IQR (9.26 to 93.65 meters) shows that the majority of objects cover this range of distances.</p>
+<p><strong>Ratio of direct distance to route length (direct_real_d_ratio):</strong></p>
+<p>The ratio of direct distance to route length has a mean of infinity (inf), indicating an undefined or extremely high value for some objects, potentially due to a very short or zero route length.
+The minimum ratio is 1.00, with the 25th percentile at 1.06, the median at 1.16, and the 75th percentile at 1.46, showing that most objects have a ratio slightly above 1.00.
+The presence of infinity values suggests some anomalies or outliers in the data.</p>
+<p><strong>Total Time (total_time):</strong></p>
+<p>The average total time for objects from the first to the last detected point is 31,888.16 seconds, with a high standard deviation of 44,217.10 seconds, indicating significant variability.
+Total time ranges from 91 seconds to 975,498 seconds.
+The IQR (5,098.50 to 51,098.00 seconds) indicates that most objects fall within this time range.</p>
+<p><strong>Average Speed (avg_v):</strong></p>
+<p>The mean average speed of objects is 3.50 meters per second, with a standard deviation of 3.43 meters per second.
+Speeds range from 0.00 meters per second to 14.75 meters per second.
+The IQR (0.12 to 6.16 meters per second) suggests that most objects travel at speeds within this range.</p>
 </div>
 </div>
 <div class="section" id="pedestrians">
@@ -1500,7 +1284,7 @@ Name: avg_v, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d44904200cec1bdcd0e6d12d03be1de509b3bdd66f882f79f07640d2d62e64cb.png" src="../_images/d44904200cec1bdcd0e6d12d03be1de509b3bdd66f882f79f07640d2d62e64cb.png" />
+<img alt="../_images/aef4fe93930f276d20c4a1ef69de736925459c49da733af8a20842d944865ecd.png" src="../_images/aef4fe93930f276d20c4a1ef69de736925459c49da733af8a20842d944865ecd.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for avg_width:
 count    1769.000000
 mean        0.517953
@@ -1600,222 +1384,38 @@ Name: avg_v, dtype: float64
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
-<span class="n">pedestrians_outliers</span> <span class="o">=</span> <span class="n">detect_outliers</span><span class="p">(</span><span class="n">lines_gdf_pedestrians</span><span class="p">,</span> <span class="n">columns_to_check</span><span class="p">)</span>
-<span class="n">pedestrians_outliers</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>object_id</th>
-      <th>total_time</th>
-      <th>avg_heading</th>
-      <th>avg_v</th>
-      <th>avg_width</th>
-      <th>avg_length</th>
-      <th>avg_height</th>
-      <th>object_type</th>
-      <th>time_class</th>
-      <th>avg_heading_change</th>
-      <th>...</th>
-      <th>typeChangesRate</th>
-      <th>bins</th>
-      <th>total_time_outlier</th>
-      <th>avg_v_outlier</th>
-      <th>avg_width_outlier</th>
-      <th>avg_height_outlier</th>
-      <th>avg_length_outlier</th>
-      <th>route_length_outlier</th>
-      <th>distance_first_last_outlier</th>
-      <th>total_outliers</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>152997181</td>
-      <td>138700</td>
-      <td>148.052</td>
-      <td>0.770</td>
-      <td>0.559</td>
-      <td>0.5585</td>
-      <td>1.3320</td>
-      <td>PEDESTRIAN</td>
-      <td>0</td>
-      <td>-0.048435</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>152997343</td>
-      <td>108398</td>
-      <td>228.052</td>
-      <td>0.100</td>
-      <td>0.659</td>
-      <td>0.6375</td>
-      <td>1.0935</td>
-      <td>PEDESTRIAN</td>
-      <td>0</td>
-      <td>-0.075645</td>
-      <td>...</td>
-      <td>0.1</td>
-      <td>95-100%</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>152997466</td>
-      <td>115007</td>
-      <td>233.052</td>
-      <td>0.070</td>
-      <td>0.459</td>
-      <td>0.5000</td>
-      <td>1.4510</td>
-      <td>PEDESTRIAN</td>
-      <td>0</td>
-      <td>-0.175439</td>
-      <td>...</td>
-      <td>0.1</td>
-      <td>95-100%</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>152997836</td>
-      <td>109009</td>
-      <td>134.466</td>
-      <td>0.020</td>
-      <td>0.574</td>
-      <td>0.6820</td>
-      <td>1.2320</td>
-      <td>PEDESTRIAN</td>
-      <td>0</td>
-      <td>-0.089454</td>
-      <td>...</td>
-      <td>0.1</td>
-      <td>95-100%</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>152997959</td>
-      <td>116001</td>
-      <td>223.052</td>
-      <td>0.585</td>
-      <td>0.448</td>
-      <td>0.3850</td>
-      <td>1.1940</td>
-      <td>PEDESTRIAN</td>
-      <td>0</td>
-      <td>0.288462</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 33 columns</p>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the counts and percentages of each combination of time_class and total_outliers</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">pedestrians_outliers</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="s1">&#39;total_outliers&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
-<span class="n">total_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
-<span class="n">counts</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_counts</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-
-<span class="c1"># Pivot the data to prepare for plotting</span>
-<span class="n">pivot_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># Plotting</span>
-<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">]</span>  <span class="c1"># Define additional colors</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-
-<span class="c1"># Add labels and title</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Object Counts by time_class and total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage of Objects (%)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># Show percentages inside each bar segment</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-    <span class="n">total</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="n">cum_sum</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cum_sum</span> <span class="o">+</span> <span class="n">value</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-        <span class="n">cum_sum</span> <span class="o">+=</span> <span class="n">value</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/13982e063d36edf4e0c85321a3b8bb9b74c8825e5b9a9220dce769af96bcb3b5.png" src="../_images/13982e063d36edf4e0c85321a3b8bb9b74c8825e5b9a9220dce769af96bcb3b5.png" />
-</div>
-</div>
+<p><strong>Average Width (avg_width):</strong></p>
+<p>The average width of pedestrians is approximately 0.52 meters, with a standard deviation of 0.21 meters, indicating a relatively small variation around the mean.
+The minimum recorded width is 0.06 meters, while the maximum is 1.49 meters, suggesting a range of pedestrian widths.
+The interquartile range (IQR), which includes the 25th to 75th percentiles, is from 0.37 to 0.62 meters, indicating that most pedestrian widths fall within this range.</p>
+<p><strong>Average Length (avg_length):</strong></p>
+<p>The mean length of pedestrians is 0.50 meters, with a standard deviation of 0.24 meters, showing moderate variability.
+Pedestrian lengths range from as short as 0.09 meters to as long as 2.36 meters.
+The IQR (0.32 to 0.60 meters) suggests that many pedestrians have lengths close to the mean, with fewer extreme values.</p>
+<p><strong>Average Height (avg_height):</strong></p>
+<p>The average height is 1.12 meters, with a standard deviation of 0.44 meters.
+Heights range from 0.00 meters to 2.45 meters, indicating a significant range in pedestrian heights.
+The IQR (1.02 to 1.37 meters) suggests that most pedestrians have a height within this range</p>
+<p><strong>Route Length (route_length):</strong></p>
+<p>The mean route length for pedestrians is 24.24 meters, with a standard deviation of 44.94 meters, reflecting high variability in the distances traveled by the pedestrians.
+Route lengths range from 0.00 meters to 895.09 meters.
+The IQR (1.20 to 28.36 meters) indicates that most pedestrians travel distances within this range.</p>
+<p><strong>Distance Between First and Last Points (distance_first_last):</strong></p>
+<p>The mean distance between the first and last detected points is 14.30 meters, with a standard deviation of 25.49 meters.
+Distances vary widely, from 0.00 meters to 133.10 meters.
+The IQR (0.25 to 14.30 meters) shows that the majority of pedestrians cover this range of distances.</p>
+<p><strong>Direct Distance to Route Length Ratio (direct_real_d_ratio):</strong></p>
+<p>The ratio of direct distance to route length has a mean of infinity (inf), indicating an undefined or extremely high value for some pedestrians, potentially due to a very short or zero route length.
+The minimum ratio is 1.00, with the 25th percentile at 1.09, the median at 1.41, and the 75th percentile at 4.54, showing that most pedestrians have a ratio above 1.00.
+The presence of infinity values suggests some anomalies or outliers in the data.</p>
+<p><strong>Total Time (total_time):</strong></p>
+<p>The average total time for pedestrians from the first to the last detected point is 29,624.93 seconds, with a high standard deviation of 56,807.00 seconds, indicating significant variability.
+Total time ranges from 93 seconds to 769,198 seconds.
+The IQR (2,400.00 to 33,999.00 seconds) indicates that most pedestrians fall within this time range.</p>
+<p><strong>Average Speed (avg_v):</strong></p>
+<p>The mean average speed of pedestrians is 0.73 meters per second, with a standard deviation of 0.72 meters per second.
+Speeds range from 0.00 meters per second to 6.88 meters per second.
+The IQR (0.07 to 1.30 meters per second) suggests that most pedestrians travel at speeds within this range.</p>
 </div>
 <div class="section" id="two-wheelers">
 <h3>3. Two-Wheelers<a class="headerlink" href="#two-wheelers" title="Permalink to this heading">#</a></h3>
@@ -1827,7 +1427,7 @@ Name: avg_v, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cbc6b9eae98874dbd7f2e6267384bac91d746f201d6efbdb5fecaab6d49045d7.png" src="../_images/cbc6b9eae98874dbd7f2e6267384bac91d746f201d6efbdb5fecaab6d49045d7.png" />
+<img alt="../_images/e605bb2904a7e2b432d7b4424b2a7dea4de51b58935d7a57ca77ea9d2a2cb225.png" src="../_images/e605bb2904a7e2b432d7b4424b2a7dea4de51b58935d7a57ca77ea9d2a2cb225.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statistics for avg_width:
 count    250.000000
 mean       0.632556
@@ -1927,54 +1527,38 @@ Name: avg_v, dtype: float64
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
-<span class="n">two_wheelers_outliers</span> <span class="o">=</span> <span class="n">detect_outliers</span><span class="p">(</span><span class="n">lines_gdf_two_wheelers</span><span class="p">,</span> <span class="n">columns_to_check</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the counts and percentages of each combination of time_class and total_outliers</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">two_wheelers_outliers</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="s1">&#39;total_outliers&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
-<span class="n">total_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
-<span class="n">counts</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_counts</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-
-<span class="c1"># Pivot the data to prepare for plotting</span>
-<span class="n">pivot_counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;percentage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># Plotting</span>
-<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">]</span>  <span class="c1"># Define additional colors</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-
-<span class="c1"># Add labels and title</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Object Counts by time_class and total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage of Objects (%)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;total_outliers&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># Show percentages inside each bar segment</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-    <span class="n">total</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="n">cum_sum</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pivot_counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">pivot_counts</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cum_sum</span> <span class="o">+</span> <span class="n">value</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-        <span class="n">cum_sum</span> <span class="o">+=</span> <span class="n">value</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/5d57215e07091d25d57c06df69171ace67c09e691f8b80af96671a79f4a5d9f4.png" src="../_images/5d57215e07091d25d57c06df69171ace67c09e691f8b80af96671a79f4a5d9f4.png" />
-</div>
-</div>
+<p><strong>Average Width (avg_width):</strong></p>
+<p>The average width of two-wheelers is approximately 0.63 meters, with a standard deviation of 0.21 meters, indicating a moderate variation around the mean.
+The minimum recorded width is 0.11 meters, while the maximum is 1.71 meters, suggesting a range of two-wheeler widths.
+The interquartile range (IQR), which includes the 25th to 75th percentiles, is from 0.54 to 0.70 meters, indicating that most two-wheeler widths fall within this range.</p>
+<p><strong>Average Length (avg_length):</strong></p>
+<p>The mean length of two-wheelers is 1.25 meters, with a standard deviation of 0.50 meters, showing moderate variability.
+Two-wheeler lengths range from as short as 0.08 meters to as long as 3.74 meters.
+The IQR (0.90 to 1.63 meters) suggests that many two-wheelers have lengths close to the mean, with fewer extreme values.</p>
+<p><strong>Average Height (avg_height):</strong></p>
+<p>The average height is 1.34 meters, with a standard deviation of 0.28 meters.
+Heights range from 0.00 meters to 2.80 meters, indicating a significant range in two-wheeler heights.
+The IQR (1.22 to 1.45 meters) suggests that most two-wheelers have a height within this range.</p>
+<p><strong>Route Length (route_length):</strong></p>
+<p>The mean route length for two-wheelers is 76.28 meters, with a standard deviation of 58.75 meters, reflecting high variability in the distances traveled by the two-wheelers.
+Route lengths range from 0.02 meters to 559.92 meters.
+The IQR (22.88 to 113.70 meters) indicates that most two-wheelers travel distances within this range</p>
+<p><strong>Distance Between First and Last Points (distance_first_last):</strong></p>
+<p>The mean distance between the first and last detected points is 63.83 meters, with a standard deviation of 43.89 meters.
+Distances vary widely, from 0.00 meters to 135.98 meters.
+The IQR (18.49 to 99.81 meters) shows that the majority of two-wheelers cover this range of distances.</p>
+<p><strong>Direct Distance to Route Length Ratio (direct_real_d_ratio):</strong></p>
+<p>The ratio of direct distance to route length has a mean of infinity (inf), indicating an undefined or extremely high value for some two-wheelers, potentially due to a very short or zero route length.
+The minimum ratio is 1.00, with the 25th percentile at 1.03, the median at 1.09, and the 75th percentile at 1.25, showing that most two-wheelers have a ratio above 1.00.
+The presence of infinity values suggests some anomalies or outliers in the data.</p>
+<p><strong>Total Time (total_time):</strong></p>
+<p>The average total time for two-wheelers from the first to the last detected point is 31,482.29 seconds, with a high standard deviation of 33,844.39 seconds, indicating significant variability.
+Total time ranges from 94 seconds to 216,099 seconds.
+The IQR (8,623.25 to 41,577.00 seconds) indicates that most two-wheelers fall within this time range.</p>
+<p><strong>Average Speed (avg_v):</strong></p>
+<p>The mean average speed of two-wheelers is 3.25 meters per second, with a standard deviation of 2.82 meters per second.
+Speeds range from 0.00 meters per second to 13.43 meters per second.
+The IQR (1.02 to 5.34 meters per second) suggests that most two-wheelers travel at speeds within this range.</p>
 </div>
 </div>
 </div>
@@ -2020,11 +1604,11 @@ Name: avg_v, dtype: float64
       </div>
     </a>
     <a class="right-next"
-       href="3_dataQualityAssesment.html"
+       href="3_qualityMetrics.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">4. Data Quality Assesment</p>
+        <p class="prev-next-title">4. Quality Metrics</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2046,7 +1630,6 @@ Name: avg_v, dtype: float64
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-descriptive-satistics">General Descriptive Satistics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-data">Reading data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">0. Object Types</a></li>
