@@ -350,11 +350,9 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dividing-data-into-classes-based-on-5-minutes-interval">Dividing data into classes based on 5 minutes interval</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-geodata">Creating GeoData</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-the-distance-between-the-first-and-the-last-point">Calcualte the distance between the first and the last point</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-average-heading-and-velocity-change">Calcualte average heading and velocity change</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-geodata">Creating GeoData</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-the-distance-between-the-first-and-the-last-point">Calcualte the distance between the first and the last point</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-average-heading-and-velocity-change">Calcualte average heading and velocity change</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-lines-from-point-observations">Creating Lines from Point Observations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-statistics-for-each-line">Calculate Statistics for each line</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>
@@ -662,8 +660,9 @@ document.write(`
 </table>
 </div></div></div>
 </div>
+</div>
 <div class="section" id="calcualte-the-distance-between-the-first-and-the-last-point">
-<h3>Calcualte the distance between the first and the last point<a class="headerlink" href="#calcualte-the-distance-between-the-first-and-the-last-point" title="Permalink to this heading">#</a></h3>
+<h2>Calcualte the distance between the first and the last point<a class="headerlink" href="#calcualte-the-distance-between-the-first-and-the-last-point" title="Permalink to this heading">#</a></h2>
 <p>As one of the characteristics for the analysis we are caluclating the distance between the first and the last point for each object</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -823,7 +822,7 @@ document.write(`
 </div>
 </div>
 <div class="section" id="calcualte-average-heading-and-velocity-change">
-<h3>Calcualte average heading and velocity change<a class="headerlink" href="#calcualte-average-heading-and-velocity-change" title="Permalink to this heading">#</a></h3>
+<h2>Calcualte average heading and velocity change<a class="headerlink" href="#calcualte-average-heading-and-velocity-change" title="Permalink to this heading">#</a></h2>
 <p>As one of the characteristics for the analysis we are caluclating average heading and velocity change for each object to explore possible anomalies based on this parameters</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -853,7 +852,6 @@ document.write(`
 <span class="n">points_gdf</span> <span class="o">=</span> <span class="n">calculate_average_change</span><span class="p">(</span><span class="n">points_gdf</span><span class="p">,</span> <span class="s1">&#39;heading&#39;</span><span class="p">)</span>
 <span class="n">points_gdf</span> <span class="o">=</span> <span class="n">calculate_average_change</span><span class="p">(</span><span class="n">points_gdf</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -1231,11 +1229,9 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dividing-data-into-classes-based-on-5-minutes-interval">Dividing data into classes based on 5 minutes interval</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-geodata">Creating GeoData</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-the-distance-between-the-first-and-the-last-point">Calcualte the distance between the first and the last point</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-average-heading-and-velocity-change">Calcualte average heading and velocity change</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-geodata">Creating GeoData</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-the-distance-between-the-first-and-the-last-point">Calcualte the distance between the first and the last point</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-average-heading-and-velocity-change">Calcualte average heading and velocity change</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-lines-from-point-observations">Creating Lines from Point Observations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-statistics-for-each-line">Calculate Statistics for each line</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>

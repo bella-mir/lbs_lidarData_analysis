@@ -359,10 +359,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objects-types">Objects Types</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filterting-objects-based-on-object-type-and-calculating-new-number-of-observations">Filterting Objects Based on Object Type and Calculating New Number of Observations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#share-of-all-data-left-after-the-first-filters-applied">Share of all data left after the first filters applied</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
             </nav>
         </div>
@@ -571,7 +571,7 @@ memory usage: 215.1+ MB
             &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
             &lt;style&gt;
-                #map_6e806b979401ef92fe311def80a8ec2a {
+                #map_3c502521a3241eb2f4cd556dcbee8fde {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -601,14 +601,14 @@ memory usage: 215.1+ MB
 &lt;body&gt;
     
     
-            &lt;div class=&quot;folium-map&quot; id=&quot;map_6e806b979401ef92fe311def80a8ec2a&quot; &gt;&lt;/div&gt;
+            &lt;div class=&quot;folium-map&quot; id=&quot;map_3c502521a3241eb2f4cd556dcbee8fde&quot; &gt;&lt;/div&gt;
         
 &lt;/body&gt;
 &lt;script&gt;
     
     
-            var map_6e806b979401ef92fe311def80a8ec2a = L.map(
-                &quot;map_6e806b979401ef92fe311def80a8ec2a&quot;,
+            var map_3c502521a3241eb2f4cd556dcbee8fde = L.map(
+                &quot;map_3c502521a3241eb2f4cd556dcbee8fde&quot;,
                 {
                     center: [47.81013599968148, 13.06440500325907],
                     crs: L.CRS.EPSG3857,
@@ -617,77 +617,77 @@ memory usage: 215.1+ MB
                     preferCanvas: false,
                 }
             );
-            L.control.scale().addTo(map_6e806b979401ef92fe311def80a8ec2a);
+            L.control.scale().addTo(map_3c502521a3241eb2f4cd556dcbee8fde);
 
             
 
         
     
-            var tile_layer_70f2c5dd49c85af382b20c5625fb0e4e = L.tileLayer(
+            var tile_layer_8716b9b0010b522387ba43d127a987f3 = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}&quot;,
                 {&quot;attribution&quot;: &quot;Tiles \u0026copy; Esri \u0026mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_6e806b979401ef92fe311def80a8ec2a);
+            ).addTo(map_3c502521a3241eb2f4cd556dcbee8fde);
         
     
-            map_6e806b979401ef92fe311def80a8ec2a.fitBounds(
+            map_3c502521a3241eb2f4cd556dcbee8fde.fitBounds(
                 [[47.80833753058255, 13.061735189730241], [47.8119344687804, 13.0670748167879]],
                 {}
             );
         
     
-        function geo_json_7557ce235a1833c980134cbb9d69379e_styler(feature) {
+        function geo_json_18db9024efa8212f068308886ca820ff_styler(feature) {
             switch(feature.id) {
                 default:
                     return {&quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
             }
         }
-        function geo_json_7557ce235a1833c980134cbb9d69379e_highlighter(feature) {
+        function geo_json_18db9024efa8212f068308886ca820ff_highlighter(feature) {
             switch(feature.id) {
                 default:
                     return {&quot;fillOpacity&quot;: 0.75};
             }
         }
-        function geo_json_7557ce235a1833c980134cbb9d69379e_pointToLayer(feature, latlng) {
+        function geo_json_18db9024efa8212f068308886ca820ff_pointToLayer(feature, latlng) {
             var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
             
-            let style = geo_json_7557ce235a1833c980134cbb9d69379e_styler(feature)
+            let style = geo_json_18db9024efa8212f068308886ca820ff_styler(feature)
             Object.assign(opts, style)
             
             return new L.CircleMarker(latlng, opts)
         }
 
-        function geo_json_7557ce235a1833c980134cbb9d69379e_onEachFeature(feature, layer) {
+        function geo_json_18db9024efa8212f068308886ca820ff_onEachFeature(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if(typeof e.target.setStyle === &quot;function&quot;){
-                        geo_json_7557ce235a1833c980134cbb9d69379e.resetStyle(e.target);
+                        geo_json_18db9024efa8212f068308886ca820ff.resetStyle(e.target);
                     }
                 },
                 mouseover: function(e) {
                     if(typeof e.target.setStyle === &quot;function&quot;){
-                        const highlightStyle = geo_json_7557ce235a1833c980134cbb9d69379e_highlighter(e.target.feature)
+                        const highlightStyle = geo_json_18db9024efa8212f068308886ca820ff_highlighter(e.target.feature)
                         e.target.setStyle(highlightStyle);
                     }
                 },
             });
         };
-        var geo_json_7557ce235a1833c980134cbb9d69379e = L.geoJson(null, {
-                onEachFeature: geo_json_7557ce235a1833c980134cbb9d69379e_onEachFeature,
+        var geo_json_18db9024efa8212f068308886ca820ff = L.geoJson(null, {
+                onEachFeature: geo_json_18db9024efa8212f068308886ca820ff_onEachFeature,
             
-                style: geo_json_7557ce235a1833c980134cbb9d69379e_styler,
-                pointToLayer: geo_json_7557ce235a1833c980134cbb9d69379e_pointToLayer
+                style: geo_json_18db9024efa8212f068308886ca820ff_styler,
+                pointToLayer: geo_json_18db9024efa8212f068308886ca820ff_pointToLayer
         });
 
-        function geo_json_7557ce235a1833c980134cbb9d69379e_add (data) {
-            geo_json_7557ce235a1833c980134cbb9d69379e
+        function geo_json_18db9024efa8212f068308886ca820ff_add (data) {
+            geo_json_18db9024efa8212f068308886ca820ff
                 .addData(data)
-                .addTo(map_6e806b979401ef92fe311def80a8ec2a);
+                .addTo(map_3c502521a3241eb2f4cd556dcbee8fde);
         }
-            geo_json_7557ce235a1833c980134cbb9d69379e_add({&quot;bbox&quot;: [13.061735189730241, 47.80833753058255, 13.0670748167879, 47.8119344687804], &quot;features&quot;: [{&quot;bbox&quot;: [13.061735189730241, 47.80833753058255, 13.0670748167879, 47.8119344687804], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.0670748167879, 47.8101810023036], [13.067068504468779, 47.810004504677735], [13.067036541312305, 47.80982927371439], [13.066979235395179, 47.809656996966], [13.066897138842565, 47.809489333517995], [13.066791042501693, 47.80932789801216], [13.066661968317385, 47.80917424509868], [13.066511159483301, 47.809029854466466], [13.066340068463978, 47.80889611659552], [13.066150343003207, 47.80877431936924], [13.065943810253707, 47.80866563567439], [13.06572245918091, 47.80857111210914], [13.065488421410357, 47.808491658906874], [13.065243950703072, 47.80842804117329], [13.064991401256393, 47.80838087152083], [13.064733205039039, 47.80835060417113], [13.064471848378398, 47.80833753058255], [13.064209848025177, 47.80834177664444], [13.06394972692559, 47.808363301465484], [13.063693989934011, 47.808401897767446], [13.063445099699619, 47.80845719388067], [13.063205452958872, 47.808528657322164], [13.062977357461808, 47.808615599921886], [13.062763009754008, 47.80871718444777], [13.062564474028017, 47.80883243266593], [13.062383662247607, 47.80896023475852], [13.062222315736198, 47.80909936000854], [13.062081988406705, 47.80924846864909], [13.061964031794274, 47.80940612476263], [13.061869582036183, 47.80957081010668], [13.061799548924432, 47.80974093873252], [13.061754607136674, 47.80991487225635], [13.061735189730241, 47.81009093563607], [13.061741483962201, 47.81026743330154], [13.061773429476107, 47.81044266548319], [13.06183071887325, 47.81061494458177], [13.061912800663318, 47.810782611421544], [13.0620188845664, 47.81094405123039], [13.062147949115651, 47.81109770919273], [13.062298751487678, 47.81124210542566], [13.062469839466283, 47.811375849233904], [13.062659565424521, 47.81149765250596], [13.062866102190561, 47.81160634212268], [13.063087460644617, 47.81170087125834], [13.063321508877488, 47.81178032946549], [13.063565992726089, 47.811843951446065], [13.063818557488071, 47.81189112442445], [13.064076770606155, 47.81192139405118], [13.064338145103468, 47.8119344687804], [13.064600163543847, 47.81193022267893], [13.064860302286002, 47.81190869663956], [13.065116055797565, 47.81187009798741], [13.065364960794502, 47.811814798482416], [13.065604619973039, 47.811743330737926], [13.065832725105164, 47.811656383089336], [13.066047079275018, 47.81155479296274], [13.066245618041728, 47.81143953880725], [13.066426429324672, 47.811311730668905], [13.06658777181954, 47.81117259949701], [13.066728091767773, 47.81102348528605], [13.066846037917887, 47.810865824167635], [13.066940474534661, 47.8107011345766], [13.06701049233111, 47.810531002624835], [13.067055417218137, 47.81035706682396], [13.0670748167879, 47.8101810023036]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+            geo_json_18db9024efa8212f068308886ca820ff_add({&quot;bbox&quot;: [13.061735189730241, 47.80833753058255, 13.0670748167879, 47.8119344687804], &quot;features&quot;: [{&quot;bbox&quot;: [13.061735189730241, 47.80833753058255, 13.0670748167879, 47.8119344687804], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.0670748167879, 47.8101810023036], [13.067068504468779, 47.810004504677735], [13.067036541312305, 47.80982927371439], [13.066979235395179, 47.809656996966], [13.066897138842565, 47.809489333517995], [13.066791042501693, 47.80932789801216], [13.066661968317385, 47.80917424509868], [13.066511159483301, 47.809029854466466], [13.066340068463978, 47.80889611659552], [13.066150343003207, 47.80877431936924], [13.065943810253707, 47.80866563567439], [13.06572245918091, 47.80857111210914], [13.065488421410357, 47.808491658906874], [13.065243950703072, 47.80842804117329], [13.064991401256393, 47.80838087152083], [13.064733205039039, 47.80835060417113], [13.064471848378398, 47.80833753058255], [13.064209848025177, 47.80834177664444], [13.06394972692559, 47.808363301465484], [13.063693989934011, 47.808401897767446], [13.063445099699619, 47.80845719388067], [13.063205452958872, 47.808528657322164], [13.062977357461808, 47.808615599921886], [13.062763009754008, 47.80871718444777], [13.062564474028017, 47.80883243266593], [13.062383662247607, 47.80896023475852], [13.062222315736198, 47.80909936000854], [13.062081988406705, 47.80924846864909], [13.061964031794274, 47.80940612476263], [13.061869582036183, 47.80957081010668], [13.061799548924432, 47.80974093873252], [13.061754607136674, 47.80991487225635], [13.061735189730241, 47.81009093563607], [13.061741483962201, 47.81026743330154], [13.061773429476107, 47.81044266548319], [13.06183071887325, 47.81061494458177], [13.061912800663318, 47.810782611421544], [13.0620188845664, 47.81094405123039], [13.062147949115651, 47.81109770919273], [13.062298751487678, 47.81124210542566], [13.062469839466283, 47.811375849233904], [13.062659565424521, 47.81149765250596], [13.062866102190561, 47.81160634212268], [13.063087460644617, 47.81170087125834], [13.063321508877488, 47.81178032946549], [13.063565992726089, 47.811843951446065], [13.063818557488071, 47.81189112442445], [13.064076770606155, 47.81192139405118], [13.064338145103468, 47.8119344687804], [13.064600163543847, 47.81193022267893], [13.064860302286002, 47.81190869663956], [13.065116055797565, 47.81187009798741], [13.065364960794502, 47.811814798482416], [13.065604619973039, 47.811743330737926], [13.065832725105164, 47.811656383089336], [13.066047079275018, 47.81155479296274], [13.066245618041728, 47.81143953880725], [13.066426429324672, 47.811311730668905], [13.06658777181954, 47.81117259949701], [13.066728091767773, 47.81102348528605], [13.066846037917887, 47.810865824167635], [13.066940474534661, 47.8107011345766], [13.06701049233111, 47.810531002624835], [13.067055417218137, 47.81035706682396], [13.0670748167879, 47.8101810023036]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
 
         
     
-    geo_json_7557ce235a1833c980134cbb9d69379e.bindTooltip(
+    geo_json_18db9024efa8212f068308886ca820ff.bindTooltip(
     function(layer){
     let div = L.DomUtil.create(&#x27;div&#x27;);
     
@@ -820,8 +820,9 @@ Total unique objects (cleaned data): 6500. Share of raw: 18 percent
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="saving-final-result">
-<h3>Saving Final Result<a class="headerlink" href="#saving-final-result" title="Permalink to this heading">#</a></h3>
+<h2>Saving Final Result<a class="headerlink" href="#saving-final-result" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#data_cleaned.to_csv(&#39;data/1_data_cleaned.csv&#39;)</span>
@@ -831,9 +832,8 @@ Total unique objects (cleaned data): 6500. Share of raw: 18 percent
 </div>
 </div>
 <div class="section" id="conclusion">
-<h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
 <p>After filtering out irrelevant data based on “Tracking Status” and “Object Type,” we have prepared the data for further analysis. Approximately 70% of all points and only 18% of unique objects remain. This indicates that the filtered objects had significantly fewer points on average, supporting the idea that the filtered data was indeed irrelevant.</p>
-</div>
 </div>
 </div>
 
@@ -914,10 +914,10 @@ Total unique objects (cleaned data): 6500. Share of raw: 18 percent
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objects-types">Objects Types</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filterting-objects-based-on-object-type-and-calculating-new-number-of-observations">Filterting Objects Based on Object Type and Calculating New Number of Observations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#share-of-all-data-left-after-the-first-filters-applied">Share of all data left after the first filters applied</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-final-result">Saving Final Result</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
   </nav></div>
 

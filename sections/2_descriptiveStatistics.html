@@ -349,17 +349,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">0. Object Types</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-data-with-typechanges">Exploring Data with TypeChanges</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-functions">Additional Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">0. Object Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-data-with-typechanges">Exploring Data with TypeChanges</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-functions">Additional Functions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">1. Cars</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ars-dimentions-width-and-height-length">СARS DIMENTIONS (width and height, length)</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">1. Cars</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">2. Pedestrians</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">3. Two-Wheelers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
             </nav>
         </div>
@@ -373,7 +373,7 @@ document.write(`
                   
   <div class="tex2jax_ignore mathjax_ignore section" id="descriptive-statistics">
 <h1>3. Descriptive Statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this heading">#</a></h1>
-<p>This section is about exploring object types, there change and summary statisctics</p>
+<p>This section is about descriptive statistics overall for changing object types and for each type individually</p>
 <p>Import Libraries</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -448,9 +448,8 @@ document.write(`
 </div>
 <p>This graph is different from the one in the first chapter as it looks at object types not for individual points but for the objects as a whole, also considering changes in object type.</p>
 <p>We can see that more than 60% of the objects are cars, around 22.4% are pedestrians, and only 1% are two-wheelers. The remaining 17% are objects that changed their type along the route for some reason. We will explore these categories in the following section.</p>
-</div>
 <div class="section" id="exploring-data-with-typechanges">
-<h2>Exploring Data with TypeChanges<a class="headerlink" href="#exploring-data-with-typechanges" title="Permalink to this heading">#</a></h2>
+<h3>Exploring Data with TypeChanges<a class="headerlink" href="#exploring-data-with-typechanges" title="Permalink to this heading">#</a></h3>
 <p>We are exploring the objects that were changing their type along the route and dividing them into 3 classes based on the share of the main type: less than 80%, between 80% and 90%, and between 90% and 100%</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -842,7 +841,7 @@ Name: avg_v_change, dtype: float64
 </div>
 </div>
 <div class="section" id="additional-functions">
-<h3>Additional Functions<a class="headerlink" href="#additional-functions" title="Permalink to this heading">#</a></h3>
+<h4>Additional Functions<a class="headerlink" href="#additional-functions" title="Permalink to this heading">#</a></h4>
 <p>We have created some aditional functions that will help us explore the data for different object types:</p>
 <ol class="arabic simple">
 <li><p>The function to create plots for different fieldsin a dataframe:</p></li>
@@ -941,6 +940,7 @@ Name: avg_v_change, dtype: float64
     <span class="c1"># 5: Plots and statistics for average velocity</span>
     <span class="n">plot_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -1123,8 +1123,6 @@ Name: avg_v_change, dtype: float64
 <p>5 rows × 25 columns</p>
 </div></div></div>
 </div>
-<div class="section" id="ars-dimentions-width-and-height-length">
-<h3>СARS DIMENTIONS (width and height, length)<a class="headerlink" href="#ars-dimentions-width-and-height-length" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analyze_dataset</span><span class="p">(</span><span class="n">lines_gdf_cars</span><span class="p">)</span>
@@ -1264,7 +1262,6 @@ The IQR (5,098.50 to 51,098.00 seconds) indicates that most objects fall within 
 <p>The mean average speed of objects is 3.50 meters per second, with a standard deviation of 3.43 meters per second.
 Speeds range from 0.00 meters per second to 14.75 meters per second.
 The IQR (0.12 to 6.16 meters per second) suggests that most objects travel at speeds within this range.</p>
-</div>
 </div>
 <div class="section" id="pedestrians">
 <h2>2. Pedestrians<a class="headerlink" href="#pedestrians" title="Permalink to this heading">#</a></h2>
@@ -1552,6 +1549,10 @@ The IQR (8,623.25 to 41,577.00 seconds) indicates that most two-wheelers fall wi
 Speeds range from 0.00 meters per second to 13.43 meters per second.
 The IQR (1.02 to 5.34 meters per second) suggests that most two-wheelers travel at speeds within this range.</p>
 </div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>In this section we have analysed the objects with type changes and characteristics of different objects type. The result above is a pure description and can be used for futher analysis.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1621,17 +1622,17 @@ The IQR (1.02 to 5.34 meters per second) suggests that most two-wheelers travel 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">0. Object Types</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-data-with-typechanges">Exploring Data with TypeChanges</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-functions">Additional Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">0. Object Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-data-with-typechanges">Exploring Data with TypeChanges</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-functions">Additional Functions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">1. Cars</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ars-dimentions-width-and-height-length">СARS DIMENTIONS (width and height, length)</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">1. Cars</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">2. Pedestrians</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">3. Two-Wheelers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
   </nav></div>
 
