@@ -349,8 +349,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import libraries</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-data">Reading data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dividing-data-into-classes-based-on-5-minutes-interval">Dividing data into classes based on 5 minutes interval</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-geodata">Creating GeoData</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-the-distance-between-the-first-and-the-last-point">Calcualte the distance between the first and the last point</a></li>
@@ -374,8 +372,7 @@ document.write(`
   <div class="tex2jax_ignore mathjax_ignore section" id="data-processing">
 <h1>2. Data Processing<a class="headerlink" href="#data-processing" title="Permalink to this heading">#</a></h1>
 <p>In the following section, we will process the data to enhance opportunities for further analysis. We will divide the data into 5-minute intervals, create a GeoDataFrame to work with this dataset as spatial data, create lines (directions) for each object based on point data, and calculate various statistics for each object.</p>
-<div class="section" id="import-libraries">
-<h2>Import libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
+<p>Import libraries</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -385,15 +382,12 @@ document.write(`
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="reading-data">
-<h2>Reading data<a class="headerlink" href="#reading-data" title="Permalink to this heading">#</a></h2>
+<p>Reading data</p>
 <p>Reading the result from the previois section</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_cleaned</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/1_data_cleaned.csv&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -1236,8 +1230,6 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import libraries</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-data">Reading data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dividing-data-into-classes-based-on-5-minutes-interval">Dividing data into classes based on 5 minutes interval</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-geodata">Creating GeoData</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcualte-the-distance-between-the-first-and-the-last-point">Calcualte the distance between the first and the last point</a></li>
