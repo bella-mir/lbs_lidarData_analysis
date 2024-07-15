@@ -350,14 +350,41 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-and-stationary-objects">1. Moving and Stationary Objects</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">Cars</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">Pedestrians</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">Two-Wheelers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">Cars</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detect-stationary-objects">Detect Stationary objects</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#show-the-amount-of-stationary-objects-for-each-5-minutes-interval">Show the amount of stationary objects for each 5-minutes interval</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-outliers">3. Statistical Outliers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pedestrians</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Two-Wheelers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">Pedestrians</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Detect Stationary objects</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Show the amount of stationary objects for each 5-minutes interval</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">Two-Wheelers</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Detect Stationary objects</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Show the amount of stationary objects for each 5-minutes interval</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-outliers">3. Statistical Outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Cars</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-outliers">Detecting Outliers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-amount-of-outliers-fo-5-minutes-intervals">Showing amount of outliers fo 5-minutes intervals</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Pedestrians</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Detecting Outliers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Showing amount of outliers fo 5-minutes intervals</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Two-Wheelers</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Detecting Outliers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Showing amount of outliers fo 5-minutes intervals</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-thresholds-for-certain-parameters">4. Creating thresholds for certain parameters</a></li>
 </ul>
             </nav>
@@ -406,10 +433,11 @@ document.write(`
 <p>Based on the calculations of distance between first and last point we can detect objects that didnt move</p>
 <div class="section" id="cars">
 <h3>Cars<a class="headerlink" href="#cars" title="Permalink to this heading">#</a></h3>
-<p>Detect Stationary objects</p>
+<div class="section" id="detect-stationary-objects">
+<h4>Detect Stationary objects<a class="headerlink" href="#detect-stationary-objects" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_cars</span><span class="p">[</span><span class="s1">&#39;stationary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lines_gdf_cars</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_cars</span><span class="p">[</span><span class="s1">&#39;stationary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lines_gdf_cars</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -424,6 +452,9 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="show-the-amount-of-stationary-objects-for-each-5-minutes-interval">
+<h4>Show the amount of stationary objects for each 5-minutes interval<a class="headerlink" href="#show-the-amount-of-stationary-objects-for-each-5-minutes-interval" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group by &#39;time_class&#39; and &#39;stationary&#39;, count occurrences</span>
@@ -455,13 +486,16 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0c392b459cb0b84cb7d036a2b27d1cc392bc1efd8bab6165d73a765ff2985528.png" src="../_images/0c392b459cb0b84cb7d036a2b27d1cc392bc1efd8bab6165d73a765ff2985528.png" />
+<img alt="../_images/4377ba9e9d1d9124efa572edb27ab976107cff7347308545b09ff8107723cf9c.png" src="../_images/4377ba9e9d1d9124efa572edb27ab976107cff7347308545b09ff8107723cf9c.png" />
 </div>
+</div>
+<p>Around 30% of all cars didnt move. It could be some cars standing at parking solts or random data errors</p>
 </div>
 </div>
 <div class="section" id="pedestrians">
 <h3>Pedestrians<a class="headerlink" href="#pedestrians" title="Permalink to this heading">#</a></h3>
-<p>Detect Stationary objects</p>
+<div class="section" id="id1">
+<h4>Detect Stationary objects<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_pedestrians</span><span class="p">[</span><span class="s1">&#39;stationary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lines_gdf_pedestrians</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -479,6 +513,9 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="id2">
+<h4>Show the amount of stationary objects for each 5-minutes interval<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group by &#39;time_class&#39; and &#39;stationary&#39;, count occurrences</span>
@@ -513,13 +550,17 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <img alt="../_images/d2e4a8215df0aa62940c91e2d3aa67a7c6056b8fe816d68d7b35d822858289d3.png" src="../_images/d2e4a8215df0aa62940c91e2d3aa67a7c6056b8fe816d68d7b35d822858289d3.png" />
 </div>
 </div>
+<p>This approach indicates that only 30-40% of pedestrians were observed moving. However, it’s important to note that we cannot conclusively determine that the remainder were stationary. This highlights a limitation of using this method for pedestrians, as some individuals may have returned to their starting point during the observation period.</p>
+<p>In this scenario, additional analysis is necessary, considering other characteristics and examining the complete route paths taken by pedestrians.</p>
+</div>
 </div>
 <div class="section" id="two-wheelers">
 <h3>Two-Wheelers<a class="headerlink" href="#two-wheelers" title="Permalink to this heading">#</a></h3>
-<p>Detect Stationary objects</p>
+<div class="section" id="id3">
+<h4>Detect Stationary objects<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_two_wheelers</span><span class="p">[</span><span class="s1">&#39;stationary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lines_gdf_two_wheelers</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_two_wheelers</span><span class="p">[</span><span class="s1">&#39;stationary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lines_gdf_two_wheelers</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -534,6 +575,9 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="id4">
+<h4>Show the amount of stationary objects for each 5-minutes interval<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group by &#39;time_class&#39; and &#39;stationary&#39;, count occurrences</span>
@@ -565,8 +609,10 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ee2fe9c60f6d9c320fe97774534706117bb3c8cf096d15dc4e37038437a8d72c.png" src="../_images/ee2fe9c60f6d9c320fe97774534706117bb3c8cf096d15dc4e37038437a8d72c.png" />
+<img alt="../_images/43aa9d5a25738c606cc8f175c5c1000448b08bcfdd53ee592f665aa5165fd0f1.png" src="../_images/43aa9d5a25738c606cc8f175c5c1000448b08bcfdd53ee592f665aa5165fd0f1.png" />
 </div>
+</div>
+<p>Two-wheelers show similar statistics to cars, except between 15:35 and 15:40, where more than half of the objects are considered stationary. Further examination is needed.</p>
 </div>
 </div>
 </div>
@@ -604,6 +650,10 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
+<div class="section" id="id5">
+<h3>Cars<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<div class="section" id="detecting-outliers">
+<h4>Detecting Outliers<a class="headerlink" href="#detecting-outliers" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
@@ -780,6 +830,9 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <p>5 rows × 30 columns</p>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="showing-amount-of-outliers-fo-5-minutes-intervals">
+<h4>Showing amount of outliers fo 5-minutes intervals<a class="headerlink" href="#showing-amount-of-outliers-fo-5-minutes-intervals" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the counts and percentages of each combination of time_class and total_outliers</span>
@@ -821,8 +874,11 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
-<div class="section" id="id1">
-<h2>Pedestrians<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="id6">
+<h3>Pedestrians<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<div class="section" id="id7">
+<h4>Detecting Outliers<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
@@ -999,6 +1055,9 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <p>5 rows × 30 columns</p>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="id8">
+<h4>Showing amount of outliers fo 5-minutes intervals<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the counts and percentages of each combination of time_class and total_outliers</span>
@@ -1040,8 +1099,11 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>Two-Wheelers<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="id9">
+<h3>Two-Wheelers<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<div class="section" id="id10">
+<h4>Detecting Outliers<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
@@ -1050,6 +1112,9 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="id11">
+<h4>Showing amount of outliers fo 5-minutes intervals<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the counts and percentages of each combination of time_class and total_outliers</span>
@@ -1088,6 +1153,8 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/5d57215e07091d25d57c06df69171ace67c09e691f8b80af96671a79f4a5d9f4.png" src="../_images/5d57215e07091d25d57c06df69171ace67c09e691f8b80af96671a79f4a5d9f4.png" />
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1166,14 +1233,41 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-and-stationary-objects">1. Moving and Stationary Objects</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">Cars</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">Pedestrians</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">Two-Wheelers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">Cars</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detect-stationary-objects">Detect Stationary objects</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#show-the-amount-of-stationary-objects-for-each-5-minutes-interval">Show the amount of stationary objects for each 5-minutes interval</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-outliers">3. Statistical Outliers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pedestrians</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Two-Wheelers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">Pedestrians</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Detect Stationary objects</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Show the amount of stationary objects for each 5-minutes interval</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">Two-Wheelers</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Detect Stationary objects</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Show the amount of stationary objects for each 5-minutes interval</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-outliers">3. Statistical Outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Cars</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-outliers">Detecting Outliers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-amount-of-outliers-fo-5-minutes-intervals">Showing amount of outliers fo 5-minutes intervals</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Pedestrians</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Detecting Outliers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Showing amount of outliers fo 5-minutes intervals</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Two-Wheelers</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Detecting Outliers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Showing amount of outliers fo 5-minutes intervals</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-thresholds-for-certain-parameters">4. Creating thresholds for certain parameters</a></li>
 </ul>
   </nav></div>
