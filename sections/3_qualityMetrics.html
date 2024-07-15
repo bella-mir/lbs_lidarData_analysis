@@ -349,8 +349,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">Pedestrians</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">Two-Wheelers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-and-stationary-objects">1. Moving and Stationary Objects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">Cars</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">Pedestrians</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">Two-Wheelers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-outliers">3. Statistical Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pedestrians</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Two-Wheelers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-thresholds-for-certain-parameters">4. Creating thresholds for certain parameters</a></li>
 </ul>
             </nav>
         </div>
@@ -364,6 +372,14 @@ document.write(`
                   
   <div class="tex2jax_ignore mathjax_ignore section" id="quality-metrics">
 <h1>4. Quality Metrics<a class="headerlink" href="#quality-metrics" title="Permalink to this heading">#</a></h1>
+<p>The quality metrics we suggest:</p>
+<ol class="arabic simple">
+<li><p>Detecting moving and stationary objects</p></li>
+<li><p>Detecting objects with changing types (it is described in the previous section)</p></li>
+<li><p>Detecting statistical outliers for the main characteristics</p></li>
+<li><p>Creating thresholds for certain parameters</p></li>
+</ol>
+<p>Based on these criteria, we can assess the percentage of unreliable data for each 5-minute interval (the interval could be changed).</p>
 <p>Import Libraries</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -385,7 +401,178 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Based on this cahracteristics we can distinguish statistical outliers and use it as a data quality metrics</p>
+<div class="section" id="moving-and-stationary-objects">
+<h2>1. Moving and Stationary Objects<a class="headerlink" href="#moving-and-stationary-objects" title="Permalink to this heading">#</a></h2>
+<p>Based on the calculations of distance between first and last point we can detect objects that didnt move</p>
+<div class="section" id="cars">
+<h3>Cars<a class="headerlink" href="#cars" title="Permalink to this heading">#</a></h3>
+<p>Detect Stationary objects</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_cars</span><span class="p">[</span><span class="s1">&#39;stationary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lines_gdf_cars</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/geopandas/geodataframe.py:1538: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  super().__setitem__(key, value)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group by &#39;time_class&#39; and &#39;stationary&#39;, count occurrences</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">lines_gdf_cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="s1">&#39;stationary&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Calculate percentages for each &#39;time_class&#39;</span>
+<span class="n">grouped_percentage</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">grouped</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Plotting the stacked bar chart with percentages</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">grouped_percentage</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Adding percentages to the bars</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Only annotate bars with height &gt; 0</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">get_y</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">)</span>
+
+<span class="c1"># Customizing the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cars by Time Class and Stationary Status&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time Class&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage of Cars&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Rotate x-axis labels if needed</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Stationary&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Not Stationary&#39;</span><span class="p">,</span> <span class="s1">&#39;Stationary&#39;</span><span class="p">])</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0c392b459cb0b84cb7d036a2b27d1cc392bc1efd8bab6165d73a765ff2985528.png" src="../_images/0c392b459cb0b84cb7d036a2b27d1cc392bc1efd8bab6165d73a765ff2985528.png" />
+</div>
+</div>
+</div>
+<div class="section" id="pedestrians">
+<h3>Pedestrians<a class="headerlink" href="#pedestrians" title="Permalink to this heading">#</a></h3>
+<p>Detect Stationary objects</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_pedestrians</span><span class="p">[</span><span class="s1">&#39;stationary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lines_gdf_pedestrians</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/geopandas/geodataframe.py:1538: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  super().__setitem__(key, value)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group by &#39;time_class&#39; and &#39;stationary&#39;, count occurrences</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">lines_gdf_pedestrians</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="s1">&#39;stationary&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Calculate percentages for each &#39;time_class&#39;</span>
+<span class="n">grouped_percentage</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">grouped</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Plotting the stacked bar chart with percentages</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">grouped_percentage</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Adding percentages to the bars</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Only annotate bars with height &gt; 0</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">get_y</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">)</span>
+
+<span class="c1"># Customizing the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Pedestrians by Time Class and Stationary Status&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time Class&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage of Pedestrians&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Rotate x-axis labels if needed</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Stationary&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Not Stationary&#39;</span><span class="p">,</span> <span class="s1">&#39;Stationary&#39;</span><span class="p">])</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d2e4a8215df0aa62940c91e2d3aa67a7c6056b8fe816d68d7b35d822858289d3.png" src="../_images/d2e4a8215df0aa62940c91e2d3aa67a7c6056b8fe816d68d7b35d822858289d3.png" />
+</div>
+</div>
+</div>
+<div class="section" id="two-wheelers">
+<h3>Two-Wheelers<a class="headerlink" href="#two-wheelers" title="Permalink to this heading">#</a></h3>
+<p>Detect Stationary objects</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines_gdf_two_wheelers</span><span class="p">[</span><span class="s1">&#39;stationary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lines_gdf_two_wheelers</span><span class="p">[</span><span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/geopandas/geodataframe.py:1538: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  super().__setitem__(key, value)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group by &#39;time_class&#39; and &#39;stationary&#39;, count occurrences</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">lines_gdf_two_wheelers</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;time_class&#39;</span><span class="p">,</span> <span class="s1">&#39;stationary&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Calculate percentages for each &#39;time_class&#39;</span>
+<span class="n">grouped_percentage</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">grouped</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Plotting the stacked bar chart with percentages</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">grouped_percentage</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Adding percentages to the bars</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Only annotate bars with height &gt; 0</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">get_y</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">)</span>
+
+<span class="c1"># Customizing the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Two-Wheelers by Time Class and Stationary Status&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time Class&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage of Two-Wheelers&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Rotate x-axis labels if needed</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Stationary&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Not Stationary&#39;</span><span class="p">,</span> <span class="s1">&#39;Stationary&#39;</span><span class="p">])</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ee2fe9c60f6d9c320fe97774534706117bb3c8cf096d15dc4e37038437a8d72c.png" src="../_images/ee2fe9c60f6d9c320fe97774534706117bb3c8cf096d15dc4e37038437a8d72c.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="statistical-outliers">
+<h2>3. Statistical Outliers<a class="headerlink" href="#statistical-outliers" title="Permalink to this heading">#</a></h2>
+<p>Creating function to easlily detect statistical outliers based on the 1,5 Interquartile Range.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">detect_outliers</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
@@ -455,8 +642,8 @@ document.write(`
       <th>time_class</th>
       <th>avg_heading_change</th>
       <th>...</th>
-      <th>direct_real_d_ratio</th>
       <th>geometry</th>
+      <th>stationary</th>
       <th>total_time_outlier</th>
       <th>avg_v_outlier</th>
       <th>avg_width_outlier</th>
@@ -481,8 +668,8 @@ document.write(`
       <td>0</td>
       <td>0.065886</td>
       <td>...</td>
-      <td>623.585910</td>
       <td>LINESTRING (13.06440 47.81014, 13.06441 47.810...</td>
+      <td>1</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -505,8 +692,8 @@ document.write(`
       <td>0</td>
       <td>-0.068684</td>
       <td>...</td>
-      <td>698.199732</td>
       <td>LINESTRING (13.06413 47.81005, 13.06413 47.810...</td>
+      <td>1</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -529,8 +716,8 @@ document.write(`
       <td>0</td>
       <td>-0.081633</td>
       <td>...</td>
-      <td>1.208331</td>
       <td>LINESTRING (13.06339 47.80977, 13.06339 47.809...</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -553,8 +740,8 @@ document.write(`
       <td>0</td>
       <td>-0.053851</td>
       <td>...</td>
-      <td>1.299410</td>
       <td>LINESTRING (13.06339 47.80978, 13.06340 47.809...</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -577,8 +764,8 @@ document.write(`
       <td>0</td>
       <td>0.225113</td>
       <td>...</td>
-      <td>2.013326</td>
       <td>LINESTRING (13.06394 47.80935, 13.06394 47.809...</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
@@ -590,7 +777,7 @@ document.write(`
     </tr>
   </tbody>
 </table>
-<p>5 rows × 29 columns</p>
+<p>5 rows × 30 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -633,8 +820,9 @@ document.write(`
 <img alt="../_images/c9ea72b2a96d5572ff7d17ab4ea2ab0243e64e896653342523ae01b13b2b8251.png" src="../_images/c9ea72b2a96d5572ff7d17ab4ea2ab0243e64e896653342523ae01b13b2b8251.png" />
 </div>
 </div>
-<div class="section" id="pedestrians">
-<h2>Pedestrians<a class="headerlink" href="#pedestrians" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="id1">
+<h2>Pedestrians<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
@@ -673,8 +861,8 @@ document.write(`
       <th>time_class</th>
       <th>avg_heading_change</th>
       <th>...</th>
-      <th>direct_real_d_ratio</th>
       <th>geometry</th>
+      <th>stationary</th>
       <th>total_time_outlier</th>
       <th>avg_v_outlier</th>
       <th>avg_width_outlier</th>
@@ -699,8 +887,8 @@ document.write(`
       <td>0</td>
       <td>-0.048435</td>
       <td>...</td>
-      <td>1.684016</td>
       <td>LINESTRING (13.06399 47.81006, 13.06399 47.810...</td>
+      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -723,8 +911,8 @@ document.write(`
       <td>0</td>
       <td>-0.075645</td>
       <td>...</td>
-      <td>2.245971</td>
       <td>LINESTRING (13.06429 47.80957, 13.06429 47.809...</td>
+      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -747,8 +935,8 @@ document.write(`
       <td>0</td>
       <td>-0.175439</td>
       <td>...</td>
-      <td>1.953137</td>
       <td>LINESTRING (13.06442 47.80944, 13.06441 47.809...</td>
+      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -771,8 +959,8 @@ document.write(`
       <td>0</td>
       <td>-0.089454</td>
       <td>...</td>
-      <td>1.146090</td>
       <td>LINESTRING (13.06453 47.80964, 13.06453 47.809...</td>
+      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -795,8 +983,8 @@ document.write(`
       <td>0</td>
       <td>0.288462</td>
       <td>...</td>
-      <td>3.144418</td>
       <td>LINESTRING (13.06450 47.80986, 13.06451 47.809...</td>
+      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -808,7 +996,7 @@ document.write(`
     </tr>
   </tbody>
 </table>
-<p>5 rows × 29 columns</p>
+<p>5 rows × 30 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -852,8 +1040,8 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="section" id="two-wheelers">
-<h2>Two-Wheelers<a class="headerlink" href="#two-wheelers" title="Permalink to this heading">#</a></h2>
+<div class="section" id="id2">
+<h2>Two-Wheelers<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_v&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_height&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_length&#39;</span><span class="p">,</span> <span class="s1">&#39;route_length&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_first_last&#39;</span><span class="p">]</span>
@@ -902,6 +1090,11 @@ document.write(`
 <img alt="../_images/5d57215e07091d25d57c06df69171ace67c09e691f8b80af96671a79f4a5d9f4.png" src="../_images/5d57215e07091d25d57c06df69171ace67c09e691f8b80af96671a79f4a5d9f4.png" />
 </div>
 </div>
+</div>
+<div class="section" id="creating-thresholds-for-certain-parameters">
+<h2>4. Creating thresholds for certain parameters<a class="headerlink" href="#creating-thresholds-for-certain-parameters" title="Permalink to this heading">#</a></h2>
+<p>This approach can add more value, as statistical outliers sometimes do not work well with small values in our data.</p>
+<p>Unfortunately, in this project, we lack time to conduct this approach, but we emphasize that relying solely on statistical outliers is insufficient. Additional analysis and manual detection of thresholds are needed.</p>
 </div>
 </div>
 
@@ -972,8 +1165,16 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">Pedestrians</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">Two-Wheelers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-and-stationary-objects">1. Moving and Stationary Objects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cars">Cars</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pedestrians">Pedestrians</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-wheelers">Two-Wheelers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-outliers">3. Statistical Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pedestrians</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Two-Wheelers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-thresholds-for-certain-parameters">4. Creating thresholds for certain parameters</a></li>
 </ul>
   </nav></div>
 
